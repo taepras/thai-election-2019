@@ -105,8 +105,15 @@
                 // console.log(candidateData)
                 var candidate = $('<tr>')
                 candidate.append($('<td>').html(number))
-                candidate.append($('<td>').html(candidateData.title + ' ' + candidateData.firstName + ' ' + candidateData.lastName))
-                candidate.append($('<td>').html(candidateData.party))
+
+                var candidateLink = $('<a target="_blank">').html(candidateData.title + ' ' + candidateData.firstName + ' ' + candidateData.lastName)
+                candidateLink.attr('href', 'http://www.google.com/search?q=' + candidateData.firstName + '+' + candidateData.lastName)
+                candidate.append($('<td>').append(candidateLink))
+
+                var partyLink = $('<a target="_blank">').html(candidateData.party)
+                partyLink.attr('href', 'http://www.google.com/search?q=พรรค' + candidateData.party + '+นโยบาย')
+                candidate.append($('<td>').append(partyLink))
+
                 $('#output-table tbody').append(candidate)
 
                 partiesNotInvolved.remove(candidateData.party)
