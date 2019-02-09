@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+</head>
+
+<body class="mt-5 pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form>
+                    <div class="row">
+                        <label class="col-sm-3 col-form-label">จังหวัด</label>
+                        <div class="col-sm-9 mb-3">
+                            <select name="province" class="form-control" id="provinces"></select>
+                        </div>
+                        <label class="col-sm-3 col-form-label">เขตเลือกตั้ง</label>
+                        <div class="col-sm-9 mb-3">
+                            <select name="area" class="form-control" id="areas"></select>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+                <table class="table" id="output-table">
+                    <thead>
+                        <tr>
+                            <th>หมายเลข</th>
+                            <th>ชื่อผู้สมัคร</th>
+                            <th>พรรค</th>
+                            <!-- <th>candidate นายกของพรรค</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <hr>
+                <b>พรรคที่ไม่ได้ลงสมัครรับเลือกตั้งในเขตนี้ (ไม่สามารถเลือกได้ทั้ง ส.ส. เขต และ party list):</b>
+                <div class="row mt-3" id="not-in-this-area">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script>
+        Array.prototype.remove = function () {
+            var what, a = arguments, L = a.length, ax;
+            while (L && this.length) {
+                what = a[--L];
+                while ((ax = this.indexOf(what)) !== -1) {
+                    this.splice(ax, 1);
+                }
+            }
+            return this;
+        };
+    </script>
+    <script>
+        var candidates
+        var parties = []
+        var provinces = {}
+
+        $('#provinces').change(function (e) {
+            $('#areas').empty()
+            var selectedProvince = $('#provinces').val()
+
+            // candidates[selectedProvince] = candidates[selectedProvince].sort(function (a, b) {
+            //     return a.area == b.area ? 0 : a.area < b.area ? -1 : 1;
+            // })
+            // sortedKeys = object.keys(provinces[selectedProvince])
+
+            // console.log('!', selectedProvince, provinces[selectedProvince])
+            for (area in provinces[selectedProvince]) {
+                // console.log('province:', selectedProvince, area, provinces[selectedProvince][area])
+                var districtInfo = provinces[selectedProvince][area]
+                var districtNames = []
+                // console.log(select   edProvince, area, districtInfo)
+                for (i in districtInfo) {
+                    if (districtInfo[i].district)
+                        districtNames.push(districtInfo[i].district)
+                }
+                // console.log(districtNames)
+                var option = $('<option>').html('เขต ' + area + ' (เขต/อำเภอ ' + districtNames.join(', ') + ')')
+                option.attr('value', area)
+
+                $('#areas').append(option)
+            }
+
+            $('#areas').trigger('change')
+        })
+
+        $('#areas').change(function (e) {
+            $('#output-table tbody').empty()
+            var selectedProvince = $('#provinces').val()
+            var selectedArea = $('#areas').val()
+            var partiesNotInvolved = parties.slice(0)
+
+            for (number in candidates[selectedProvince][selectedArea]) {
+                candidateData = candidates[selectedProvince][selectedArea][number]
+                // console.log(candidateData)
+                var candidate = $('<tr>')
+                candidate.append($('<td>').html(number))
+                candidate.append($('<td>').html(candidateData.title + ' ' + candidateData.firstName + ' ' + candidateData.lastName))
+                candidate.append($('<td>').html(candidateData.party))
+                $('#output-table tbody').append(candidate)
+
+                partiesNotInvolved.remove(candidateData.party)
+            }
+
+            $('#not-in-this-area').empty()
+            for (p of partiesNotInvolved.sort()) {
+                $('#not-in-this-area').append($('<div class="col-sm-4 col-6">').html(p))
+            }
+            // $('#not-in-this-area').html(partiesNotInvolved.join('<br>'))
+        })
+
+        $.get('/data/candidates.json', function (x) {
+            candidates = x
+
+            for (province in candidates) {
+                for (area in candidates[province]) {
+                    for (number in candidates[province][area]) {
+                        var party = candidates[province][area][number].party
+                        if (parties.indexOf(party) < 0)
+                            parties.push(party)
+                    }
+                }
+            }
+
+            $.get('/data/areas.json', function (y) {
+                provinces = y
+
+                for (province of Object.keys(provinces)) {
+                    var option = $('<option>').html(province)
+                    option.attr('value', province)
+                    $('#provinces').append(option)
+                }
+                // console.log('!', Object.keys(candidates)[0])
+                $('#provinces').val(Object.keys(candidates)[0]).trigger('change')
+                $('#areas').trigger('change')
+            })
+
+        })
+    </script>
+</body>
+
+</html>
