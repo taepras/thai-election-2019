@@ -119,7 +119,7 @@
             // $('#not-in-this-area').html(partiesNotInvolved.join('<br>'))
         })
 
-        $.get('/data/candidates.json', function (x) {
+        $.get('data/candidates.json', function (x) {
             candidates = x
 
             for (province in candidates) {
@@ -132,7 +132,7 @@
                 }
             }
 
-            $.get('/data/areas.json', function (y) {
+            $.get('data/areas.json', function (y) {
                 provinces = y
 
                 for (province of Object.keys(provinces)) {
