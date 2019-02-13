@@ -9,18 +9,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
 </head>
 
-<body class="my-5 py-5">
+<body class="my-3">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <form>
                     <div class="row">
-                        <label class="col-sm-3 col-form-label">จังหวัด</label>
-                        <div class="col-sm-9 mb-3">
+                        <div class="col-6">
+                            <label>จังหวัด</label>
                             <select name="province" class="form-control" id="provinces"></select>
                         </div>
-                        <label class="col-sm-3 col-form-label">เขตเลือกตั้ง</label>
-                        <div class="col-sm-9 mb-3">
+                        <div class="col-6">
+                            <label>เขตเลือกตั้ง</label>
                             <select name="area" class="form-control" id="areas"></select>
                         </div>
                     </div>
@@ -30,8 +30,8 @@
                     <thead>
                         <tr>
                             <th>หมายเลข</th>
-                            <th>ชื่อผู้สมัคร</th>
-                            <th>พรรค</th>
+                            <th>พรรค/ชื่อผู้สมัคร</th>
+                            <!-- <th>พรรค</th> -->
                             <!-- <th>candidate นายกของพรรค</th> -->
                         </tr>
                     </thead>
@@ -106,13 +106,18 @@
                 var candidate = $('<tr>')
                 candidate.append($('<td>').html(number))
 
+                var infoCell = $('<td>')
+                
+                var partyLink = $('<b><a target="_blank">').html(candidateData.party)
+                partyLink.attr('href', 'http://www.google.com/search?q=พรรค' + candidateData.party + '+นโยบาย')
+                infoCell.append(partyLink)
+                infoCell.append('<br>')
+
                 var candidateLink = $('<a target="_blank">').html(candidateData.title + ' ' + candidateData.firstName + ' ' + candidateData.lastName)
                 candidateLink.attr('href', 'http://www.google.com/search?q=' + candidateData.firstName + '+' + candidateData.lastName)
-                candidate.append($('<td>').append(candidateLink))
+                infoCell.append(candidateLink)
 
-                var partyLink = $('<a target="_blank">').html(candidateData.party)
-                partyLink.attr('href', 'http://www.google.com/search?q=พรรค' + candidateData.party + '+นโยบาย')
-                candidate.append($('<td>').append(partyLink))
+                candidate.append(infoCell)
 
                 $('#output-table tbody').append(candidate)
 

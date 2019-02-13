@@ -1,5 +1,7 @@
 #  -*- coding: utf-8 -*-
 
+# https://www.bbc.com/thai/thailand-47086016
+
 import json
 
 infile = open("candidates.csv", mode="r", encoding="utf-8")
