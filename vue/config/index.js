@@ -43,7 +43,8 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/thai-election-2019/vue/dist/',
+    // assetsPublicPath: '/',
 
     /**
      * Source Maps
