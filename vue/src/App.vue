@@ -1,12 +1,11 @@
 <template>
-  <div id="app">
-    <transition
-        name="fade"
-        mode="out-in"
-      >
-    <router-view :candidates="candidates" :areas="areas" :parties="parties" />
-    </transition>
-  </div>
+    <div id="app">
+        <transition name="fade" mode="out-in">
+            <keep-alive>
+                <router-view :candidates="candidates" :areas="areas" :parties="parties" />
+            </keep-alive>
+        </transition>
+    </div>
 </template>
 
 <script>
@@ -57,12 +56,11 @@ export default {
             }
 
             for (var p in parties) {
-                if (!parties[party].candidateCount)
-                    parties[party].candidateCount = 0;
+                if (!parties[p].candidateCount) parties[p].candidateCount = 0;
             }
-            this.candidates = candidates
-            this.areas = areas
-            this.parties = parties
+            this.candidates = candidates;
+            this.areas = areas;
+            this.parties = parties;
         }
     }
 };
@@ -70,37 +68,60 @@ export default {
 
 <style>
 body {
-    padding: 10px;
+    padding: 0px 10px   ;
     background-color: #fafafa;
 }
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: 0.2s all;
+    transition: 0.2s all;
 }
 
 .fade-enter {
-  opacity: 0;
-  transform: translateX(50px);
+    opacity: 0;
+    transform: translateX(50px);
 }
 
 .fade-leave-active {
-  opacity: 0;
-  transform: translateX(-50px);
+    opacity: 0;
+    transform: translateX(-50px);
 }
 
-.btn {
-  border-radius: 10px;
+.btn,
+.alert {
+    border-radius: 10px;
 }
 
-h1, h2, h3, h4, h5, h6, .accent {
-  font-family: 'Athiti', sans-serif;
+.navbar-padding {
+    padding-top: 56px;
 }
 
-h1 { font-size: 24pt; }
-h2 { font-size: 20pt; }
-h3 { font-size: 18pt; }
-h4 { font-size: 16pt; }
-h5 { font-size: 14pt; }
-h6 { font-size: 12pt; }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.accent {
+    font-family: "Athiti", sans-serif;
+}
+
+h1 {
+    font-size: 24pt;
+}
+h2 {
+    font-size: 20pt;
+}
+h3 {
+    font-size: 18pt;
+}
+h4 {
+    font-size: 16pt;
+}
+h5 {
+    font-size: 14pt;
+}
+h6 {
+    font-size: 12pt;
+}
 </style>

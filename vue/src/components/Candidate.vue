@@ -22,7 +22,7 @@
                         <li>เพิ่มโอกาสให้
                             <b>{{candidate.title}} {{candidate.firstName}} {{candidate.lastName}}</b> เป็นผู้แทนเขต</li>
                         <li>เพิ่มที่นั่งให้ ส.ส. บัญชีรายชื่อของ
-                            <b>พรรค{{candidate.party}}</b> (ทุกเสียงที่ได้จะถูกนำไปคำนวณจำนวน ส.ส. บัญชีรายชื่อ โดยไม่จำเป็นต้องชนะเลือกตั้งในเขต)
+                            <b>พรรค{{candidate.party}}</b> (ไม่จำเป็นต้องชนะเลือกตั้งในเขต)
                         </li>
                         <li>
                             <span :class="{ 'strikethrough': parties[candidate.party].pm_candidates.length == 0 }">
@@ -108,6 +108,11 @@ ul, ol {
 
 ol {
     padding-inline-start: 15px;
+}
+
+li {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .strikethrough {

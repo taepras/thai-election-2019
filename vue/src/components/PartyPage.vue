@@ -1,4 +1,12 @@
 <template>
+<div class="navbar-padding">
+<navbar>
+            <template v-slot:center>
+                <span class="accent">พรรค{{partyName}}</span>
+            </template>
+            <template v-slot:right>
+            </template>
+        </navbar>
     <div class="container">
         <div class="row">
             <div class="col-12 text-center my-3">
@@ -60,7 +68,7 @@
                                 <td class="text-center" colspan="2">พรรคนี้ไม่ได้ส่งรายชื่อผู้สมัคร ส.ส. บรรชีรายชื่อ</td>
                             </tr>
                             <tr v-if="!party.partylist_candidates">
-                                <td class="text-center" colspan="2">ขออภัย ไม่มีข้อมูล</td>
+                                <td class="text-center" colspan="2">ขออภัย ยังไม่มีข้อมูล</td>
                             </tr>
                         </tbody>
                     </table>
@@ -68,17 +76,19 @@
             </div>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
 import FloatingCard from "@/components/FloatingCard.vue";
 import Accordion from "@/components/Accordion.vue";
 import Candidate from "@/components/Candidate.vue";
+import Navbar from "@/components/Navbar.vue";
 import utils from "@/utils.js";
 
 export default {
     name: "PartyPage",
-    components: { FloatingCard, Accordion, Candidate },
+    components: { FloatingCard, Accordion, Candidate, Navbar },
     props: ["candidates", "areas", "parties"],
     data() {
         return {
@@ -93,7 +103,7 @@ export default {
             return "/static/logo/" + this.partyName + ".png";
         }
     },
-    created() {
+    beforeMount() {
         this.partyName = this.$route.params.partyName;
         if (this.parties && this.parties[this.partyName]) 
             this.party = this.parties[this.partyName];
