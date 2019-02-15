@@ -78,13 +78,18 @@ export default {
     สตูล: "Satun",
     สุราษฎร์ธานี: "Surat Thani"
   },
-  provinceEnglishToThai: function (province) {
-    if (!province)
-      return ''
+  provinceEnglishToThai: function(province) {
+    if (!province) return "";
     for (var k in this.provinceMap) {
-      if (this.provinceMap[k].toLowerCase().replace(/\s/g, '') === province.toLowerCase().replace(/\s/g, ''))
-        return k
+      if (
+        this.provinceMap[k].toLowerCase().replace(/\s/g, "") ===
+        province.toLowerCase().replace(/\s/g, "")
+      )
+        return k;
     }
-    return ''
+    return "";
+  },
+  provinceToUrl: function(province) {
+    return this.provinceMap[province].toLowerCase().replace(/\s/g, "");
   }
 };

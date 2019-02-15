@@ -1,9 +1,9 @@
 <template>
     <div id="app">
-        <transition name="fade" mode="out-in">
-            <keep-alive>
+        <transition name="page-fade" mode="out-in">
+            <!-- <keep-alive> -->
                 <router-view :candidates="candidates" :areas="areas" :parties="parties" />
-            </keep-alive>
+            <!-- </keep-alive> -->
         </transition>
     </div>
 </template>
@@ -68,32 +68,38 @@ export default {
 
 <style>
 body {
-    padding: 0px 10px   ;
-    background-color: #fafafa;
+    margin: 0;
+    padding: 0px 10px;
+    background-color: #f8f8fa;
 }
 
-.fade-enter-active,
-.fade-leave-active {
+.page-fade-enter-active,
+.page-fade-leave-active {
     transition: 0.2s all;
 }
 
-.fade-enter {
+.page-fade-enter {
     opacity: 0;
     transform: translateX(50px);
 }
 
-.fade-leave-active {
+.page-fade-leave-active {
     opacity: 0;
     transform: translateX(-50px);
 }
 
 .btn,
-.alert {
+.alert,
+.form-control {
     border-radius: 10px;
 }
 
 .navbar-padding {
     padding-top: 56px;
+}
+
+.fill-page-height {
+    height: 100vh;
 }
 
 h1,
@@ -104,6 +110,7 @@ h5,
 h6,
 .accent {
     font-family: "Athiti", sans-serif;
+    font-weight: bold;
 }
 
 h1 {
@@ -123,5 +130,34 @@ h5 {
 }
 h6 {
     font-size: 12pt;
+}
+
+.not-bold {
+    font-weight: normal;
+}
+
+.highlight {
+    font-weight: bold;
+    background: linear-gradient(to right, #fff1adff 50%, #ffffff00 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    transition: background-position 0.5s;
+    transition-delay: 400ms;
+}
+
+.highlight.active {
+    background-position: 0 0;
+}
+
+.container {
+    max-width: 600px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    opacity: 0.8;
 }
 </style>

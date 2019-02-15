@@ -1,10 +1,10 @@
 <template>
     <floating-card :class="{ 'expanded': isExpanded }">
-        <accordion class="" @update="onAccordionUpdate">
-            <template v-slot:above>
+        <accordion @update="onAccordionUpdate">
+            <template v-slot:above class="clickable">
                 <div class="row">
                     <div class="col-10 floating-card-col">
-                        <slot name="above">
+                        <slot name="above" :isExpanded="isExpanded">
                         </slot>
                     </div>
                     <div class="col-2 floating-card-col text-right">
@@ -14,7 +14,7 @@
             </template>
             <template v-slot:below>
                 <hr>
-                <slot name="below">
+                <slot name="below" :isExpanded="isExpanded">
                 </slot>
             </template>
         </accordion>
@@ -36,6 +36,7 @@ export default {
     methods: {
         onAccordionUpdate(state) {
             this.isExpanded = state;
+            this.$emit('change', this.isExpanded)
         }
     }
 };

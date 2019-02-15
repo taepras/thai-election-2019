@@ -1,5 +1,4 @@
 <template>
-
     <accordion-floating-card>
         <template v-slot:above>
             <div class="row candidate">
@@ -13,20 +12,20 @@
                 </div>
             </div>
         </template>
-        <template v-slot:below>
+        <template v-slot:below="slotProps">
             <div class="row candidate-details">
                 <div class="col">
                     ถ้าเลือก
                     <b>{{candidate.firstName}} {{candidate.lastName}}</b> จะได้...
                     <ol>
                         <li>เพิ่มโอกาสให้
-                            <b>{{candidate.title}} {{candidate.firstName}} {{candidate.lastName}}</b> เป็นผู้แทนเขต</li>
-                        <li>เพิ่มที่นั่งให้ ส.ส. บัญชีรายชื่อของ
+                            <b>{{candidate.title}} {{candidate.firstName}} {{candidate.lastName}}</b> เป็น <span class="highlight" :class="{ 'active': slotProps.isExpanded }">ส.ส. เขต</span></li>
+                        <li>เพิ่มที่นั่งให้ <span class="highlight" :class="{ 'active': slotProps.isExpanded }">ส.ส. บัญชีรายชื่อ</span>ของ
                             <b>พรรค{{candidate.party}}</b> (ไม่จำเป็นต้องชนะเลือกตั้งในเขต)
                         </li>
                         <li>
                             <span :class="{ 'strikethrough': parties[candidate.party].pm_candidates.length == 0 }">
-                                ถ้า <b>พรรค{{candidate.party}}</b> ได้ที่นั่ง ส.ส. ในสภา 5% ขึ้นไป บุคคลที่พรรคเสนอชื่อเป็นนายกฯ ต่อไปนี้ มีสิทธิ์ได้รับเลือกในสภา:
+                                ถ้า <b>พรรค{{candidate.party}}</b> ได้ที่นั่ง ส.ส. ในสภา 5% ขึ้นไป <span class="highlight" :class="{ 'active': slotProps.isExpanded }">แคนดิเดตนายกรัฐมนตรี</span>ของพรรค ต่อไปนี้ มีสิทธิ์ได้รับเลือกในสภา:
                             </span>
                             <ul>
                                 <li v-for="(c, i) in parties[candidate.party].pm_candidates" :key="i">
@@ -83,7 +82,8 @@ export default {
 
 .logo {
     /* width: 40px; */
-    height: 100%;
+    height: calc(100% + .5rem);
+    margin: -0.25rem 0;
     background-size: contain;
     background-position: center center;
     background-repeat: no-repeat;

@@ -1,81 +1,97 @@
 <template>
-<div class="navbar-padding">
-<navbar>
+    <div class="navbar-padding">
+        <navbar>
             <template v-slot:center>
                 <span class="accent">พรรค{{partyName}}</span>
             </template>
             <template v-slot:right>
             </template>
         </navbar>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 text-center my-3">
-                <div style="max-width: 120px" class="m-auto">
-                    <div class="party-logo" :style="'background-image:url(\'' + partyLogo + '\')'"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center my-3 mt-4">
+                    <div style="max-width: 120px" class="m-auto">
+                        <div class="party-logo" :style="'background-image:url(\'' + partyLogo + '\')'"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-12 text-center">
-                <h1>พรรค{{ partyName }}</h1>
-                <p>ลงสมัคร {{ party ? party.candidateCount : 'N/A' }} จาก 350 เขต</p>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-12">
-                <a target="_blank" :href="'http://www.google.com/search?q=พรรค' + partyName + '+นโยบาย'" class="btn btn-primary btn-block">
-                    ค้นหานโยบายพรรคใน Google
-                </a>
-                <hr>
-                <h2>ข้อมูลผู้สมัครรับเลือกตั้ง</h2>
-                <floating-card class="mt-3" :height="1">
-                    <h2>รายชื่อแคนดิเดตนายกรัฐมนตรี</h2>
-                    <table class="table">
-                        <tr v-for="(c, i) in party.pm_candidates" :key="i">
-                            <td>
-                                <a target="_blank" :href="'http://www.google.com/search?q=' + c.firstName + '+' + c.lastName">
-                                    {{ c.title }} {{ c.firstName }} {{ c.lastName }}
-                                    <i class="fas fa-external-link-alt ml-1"></i>
-                                </a>
-                            </td>
+                <div class="col-12 text-center">
+                    <h1>พรรค{{ partyName }}</h1>
+                    <table class="table mt-3">
+                        <tr>
+                            <td class="text-right"><b>ส.ส. เขต</b></td>
+                            <td class="text-left">ลงสมัคร <b>{{ party ? party.candidateCount : 'N/A' }}</b> จาก 350 เขต</td>
                         </tr>
-                        <tr v-if="party.pm_candidates && party.pm_candidates.length == 0">
-                            <td class="text-center">พรรคนี้ไม่ได้ส่งรายชื่อแคนดิเดตนายกรัฐมนตรี</td>
+                        <tr>
+                            <td class="text-right"><b>ส.ส. บัญชีรายชื่อ</b></td>
+                            <td class="text-left">ลงสมัคร <b>{{ party ? party.partyListCount || 'N/A' : 'N/A' }}</b> จาก 350 ที่นั่ง</td>
+                        </tr>
+                        <tr>
+                            <td class="text-right"><b>รวม</b></td>
+                            <td class="text-left">ลงสมัคร <b>{{ party ? party.candidateCount + party.partyListCount || 'N/A' : 'N/A' }}</b> จาก 500 ที่นั่ง</td>
                         </tr>
                     </table>
-                </floating-card>
-
-                <floating-card :height="1">
-                    <h2>ผู้สมัคร ส.ส. บัญชีรายชื่อ</h2>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ลำดับ</th>
-                                <th>ชื่อ-นามสกุล</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(c, i) in party.partylist_candidates" :key="i">
+                    <!-- <p>
+                        : 
+                        ส.ส.บัญชีรายชื่อ: ลงสมัคร {{ party ? party.candidateCount : 'N/A' }} จาก 150 ที่นั่ง</p>
+                    </p> -->
+                    <a target="_blank" :href="'http://www.google.com/search?q=พรรค' + partyName + '+นโยบาย'" class="btn btn-primary btn-block">
+                        ค้นหานโยบายพรรคใน Google <i class="fas fa-external-link-alt ml-1"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <hr class="my-4">
+                    <floating-card class="mt-3" :height="1">
+                        <h2>แคนดิเดตนายกรัฐมนตรี</h2>
+                        <table class="table">
+                            <tr v-for="(c, i) in party.pm_candidates" :key="i">
                                 <td>
-                                    {{ i + 1 }}
-                                </td>
-                                <td>
-                                    <a target="_blank" :href="'http://www.google.com/search?q=พรรค' + c.firstName + '+' + c.lastName">
+                                    <a target="_blank" :href="'http://www.google.com/search?q=' + c.firstName + '+' + c.lastName">
                                         {{ c.title }} {{ c.firstName }} {{ c.lastName }}
                                         <i class="fas fa-external-link-alt ml-1"></i>
                                     </a>
                                 </td>
                             </tr>
-                            <tr v-if="party.partylist_candidates && party.partylist_candidates.length == 0">
-                                <td class="text-center" colspan="2">พรรคนี้ไม่ได้ส่งรายชื่อผู้สมัคร ส.ส. บรรชีรายชื่อ</td>
+                            <tr v-if="party.pm_candidates && party.pm_candidates.length == 0">
+                                <td class="text-center">พรรคนี้ไม่ได้ส่งรายชื่อแคนดิเดตนายกรัฐมนตรี</td>
                             </tr>
-                            <tr v-if="!party.partylist_candidates">
-                                <td class="text-center" colspan="2">ขออภัย ยังไม่มีข้อมูล</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </floating-card>
+                        </table>
+                    </floating-card>
+
+                    <floating-card :height="1">
+                        <h2>ผู้สมัคร ส.ส. บัญชีรายชื่อ</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ลำดับ</th>
+                                    <th>ชื่อ-นามสกุล</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(c, i) in party.partylist_candidates" :key="i">
+                                    <td>
+                                        {{ i + 1 }}
+                                    </td>
+                                    <td>
+                                        <a target="_blank" :href="'http://www.google.com/search?q=พรรค' + c.firstName + '+' + c.lastName">
+                                            {{ c.title }} {{ c.firstName }} {{ c.lastName }}
+                                            <i class="fas fa-external-link-alt ml-1"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr v-if="party.partylist_candidates && party.partylist_candidates.length == 0">
+                                    <td class="text-center" colspan="2">พรรคนี้ไม่ได้ส่งรายชื่อผู้สมัคร ส.ส. บรรชีรายชื่อ</td>
+                                </tr>
+                                <tr v-if="!party.partylist_candidates">
+                                    <td class="text-center" colspan="2">ขออภัย ยังไม่มีข้อมูล</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </floating-card>
+                </div>
             </div>
         </div>
-    </div>
     </div>
 </template>
 
@@ -93,9 +109,9 @@ export default {
     data() {
         return {
             party: {
-                candidateCount: ''
+                candidateCount: ""
             },
-            partyName: ''
+            partyName: ""
         };
     },
     computed: {
@@ -105,7 +121,12 @@ export default {
     },
     beforeMount() {
         this.partyName = this.$route.params.partyName;
-        if (this.parties && this.parties[this.partyName]) 
+        if (this.parties && this.parties[this.partyName])
+            this.party = this.parties[this.partyName];
+    },
+    beforeUpdate() {
+        this.partyName = this.$route.params.partyName;
+        if (this.parties && this.parties[this.partyName])
             this.party = this.parties[this.partyName];
     },
     watch: {
@@ -131,11 +152,6 @@ export default {
 
 .party-name {
     font-size: 18pt;
-    font-weight: bold;
-}
-
-h2 {
-    font-size: 14pt;
     font-weight: bold;
 }
 </style>

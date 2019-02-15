@@ -15,21 +15,21 @@
 export default {
     data: function () {
         return {
-            isOpen: false
+            isExpanded: false
         }
     },
     methods: {
         toggleAccordion: function() {
-            this.isOpen = !this.isOpen
-            this.$emit('update', this.isOpen)
+            this.isExpanded = !this.isExpanded
+            this.$emit('update', this.isExpanded)
         }
     },
     computed: {
         accordionClasses: function() {
             return {
-                "is-closed": !this.isOpen,
-                "is-primary": this.isOpen,
-                "is-dark": !this.isOpen
+                "is-closed": !this.isExpanded,
+                "is-primary": this.isExpanded,
+                "is-dark": !this.isExpanded
             };
         }
     }
@@ -42,7 +42,7 @@ export default {
 }
 .below {
     overflow: hidden;
-    max-height: 500px;
+    max-height: 600px;
     transition: 0.5s all;
 }
 .is-closed .below {
