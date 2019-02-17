@@ -3,6 +3,7 @@ import Router from "vue-router";
 import HomePage from "@/components/HomePage";
 import RegionPage from "@/components/RegionPage";
 import PartyPage from "@/components/PartyPage";
+import AllPartiesPage from "@/components/AllPartiesPage";
 
 Vue.use(Router);
 
@@ -27,6 +28,11 @@ export default new Router({
       path: "/party/:partyName",
       name: "Party",
       component: PartyPage
+    },
+    {
+      path: "/all_parties",
+      name: "AllParties",
+      component: AllPartiesPage
     }
   ],
   mode: "history",

@@ -2,7 +2,7 @@
     <div id="app">
         <transition name="page-fade" mode="out-in">
             <!-- <keep-alive> -->
-                <router-view :candidates="candidates" :areas="areas" :parties="parties" />
+            <router-view :candidates="candidates" :areas="areas" :parties="parties" />
             <!-- </keep-alive> -->
         </transition>
     </div>
@@ -57,6 +57,13 @@ export default {
 
             for (var p in parties) {
                 if (!parties[p].candidateCount) parties[p].candidateCount = 0;
+                parties[p].partyListCandidateCount = parties[p].partyListCandidates
+                    ? parties[p].partyListCandidates.length
+                    : 0;
+
+                parties[p].allCount = parties[p].candidateCount + parties[p].partyListCandidateCount
+                // if (!parties[p].candidateCount) parties[p].partyListCount = 0;
+                // if (!parties[p].candidateCount) parties[p].partyListCount = 0;
             }
             this.candidates = candidates;
             this.areas = areas;

@@ -1,0 +1,602 @@
+{
+    "กรีน": {
+        "pm_candidates": [
+            {
+                "firstName": "พงศา",
+                "lastName": "ชูแนม",
+                "title": "นาย"
+            }
+        ]
+    },
+    "กลาง": {
+        "pm_candidates": [
+            {
+                "firstName": "ชุมพล",
+                "lastName": "ครุฑแก้ว",
+                "title": "นาย"
+            }
+        ]
+    },
+    "กสิกรไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "ทรรศชล",
+                "lastName": "พงษ์ภควัต",
+                "title": "นาย"
+            }
+        ]
+    },
+    "คนงานไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "ธีระ",
+                "lastName": "เจียบุญหยก",
+                "title": "นาย"
+            }
+        ]
+    },
+    "คนธรรมดาแห่งประเทศไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "ธนพร",
+                "lastName": "ศรียากูล",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ครูไทยเพื่อประชาชน": {
+        "pm_candidates": [
+            {
+                "firstName": "ปรีดา",
+                "lastName": "บุญเพลิง",
+                "title": "นาย"
+            }
+        ]
+    },
+    "คลองไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "สายัณห์",
+                "lastName": "อินทรภักดิ์",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ความหวังใหม่": {
+        "pm_candidates": [
+            {
+                "firstName": "ชิงชัย",
+                "lastName": "มงคลธรรม",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ชาติพัฒนา": {
+        "pm_candidates": [
+            {
+                "firstName": "สุวัจน์",
+                "lastName": "ลิปตพัลลภ",
+                "title": "นาย"
+            },
+            {
+                "firstName": "วรรณรัตน์",
+                "lastName": "ชาญนุกูล",
+                "title": "นาย"
+            },
+            {
+                "firstName": "เทวัญ",
+                "lastName": "ลิปตพัลลภ",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ชาติพันธุ์ไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "โกวิทย์",
+                "lastName": "จิรชนานนท์",
+                "title": "นาย"
+            },
+            {
+                "firstName": "พลศุภรักษ์",
+                "lastName": "ศิริจันทรานนท์",
+                "title": "นาย"
+            },
+            {
+                "firstName": "ภราดล",
+                "lastName": "พรอำนวย",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ชาติไทยพัฒนา": {
+        "pm_candidates": [
+            {
+                "firstName": "กัญจนา",
+                "lastName": "ศิลปอาชา",
+                "title": "น.ส."
+            }
+        ]
+    },
+    "ฐานรากไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "บวร",
+                "lastName": "ยสินทร",
+                "title": "นาย"
+            },
+            {
+                "firstName": "ญาณวุฒิ",
+                "lastName": "พรหมเดชากุล",
+                "title": "ว่าที่ ร.ต."
+            }
+        ]
+    },
+    "ถิ่นกาขาวชาววิไล": {
+        "pm_candidates": []
+    },
+    "ทางเลือกใหม่": {
+        "pm_candidates": [
+            {
+                "firstName": "ราเชน",
+                "lastName": "ตระกูลเวียง",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ประชากรไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "สุมิตร",
+                "lastName": "สุนทรเวช",
+                "title": "นาย"
+            },
+            {
+                "firstName": "คณิศร",
+                "lastName": "สมมะลวน",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ประชาชนปฏิรูป": {
+        "pm_candidates": []
+    },
+    "ประชาชาติ": {
+        "pm_candidates": [
+            {
+                "firstName": "วันมูหะมัดนอร์",
+                "lastName": "มะทา",
+                "title": "นาย"
+            },
+            {
+                "firstName": "ทวี",
+                "lastName": "สอดส่อง",
+                "title": "พ.ต.อ."
+            },
+            {
+                "firstName": "ณหทัย",
+                "lastName": "ทิวไผ่งาม",
+                "title": "น.ส."
+            }
+        ]
+    },
+    "ประชาธรรมไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "พิเชษฐ",
+                "lastName": "สถิรชวาล",
+                "title": "นาย"
+            },
+            {
+                "firstName": "ชัยวุฑ",
+                "lastName": "ตรึกครอง",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ประชาธิปัตย์": {
+        "pm_candidates": [
+            {
+                "firstName": "อภิสิทธิ์",
+                "lastName": "เวชชาชีวะ",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ประชาธิปไตยใหม่": {
+        "pm_candidates": [
+            {
+                "firstName": "สุรทิน",
+                "lastName": "พิจารณ์",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ประชานิยม": {
+        "pm_candidates": [
+            {
+                "firstName": "รวมนคร",
+                "lastName": "ทับทิมธงไชย",
+                "title": "พ.ต.อ."
+            },
+            {
+                "firstName": "ยงยุทธ",
+                "lastName": "เทพจำนงค์",
+                "title": "พล.ต.อ."
+            },
+            {
+                "firstName": "ปฐมฤกษ์",
+                "lastName": "มณีเนตร",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ประชาภิวัฒน์": {
+        "pm_candidates": [
+            {
+                "firstName": "สมเกียรติ",
+                "lastName": "ศรลัมพ์",
+                "title": "นาย"
+            },
+            {
+                "firstName": "นันทนา",
+                "lastName": "สงฆ์ประชา",
+                "title": "นาง"
+            },
+            {
+                "firstName": "สุทธิพร",
+                "lastName": "จิตต์มิตรภาพ",
+                "title": "ศ."
+            }
+        ]
+    },
+    "ประชาไทย": {
+        "pm_candidates": []
+    },
+    "พลังครูไทย": {
+        "pm_candidates": []
+    },
+    "พลังชาติไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "ทรงกรด",
+                "lastName": "ทิพย์รัตน์",
+                "title": "พล.ต."
+            }
+        ]
+    },
+    "พลังท้องถิ่นไท": {
+        "pm_candidates": []
+    },
+    "พลังท้องถิ่นไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "ชัชวาลล์",
+                "lastName": "คงอุดม",
+                "title": "นาย"
+            },
+            {
+                "firstName": "โกวิทย์",
+                "lastName": "พวงงาม",
+                "title": "ศ."
+            }
+        ]
+    },
+    "พลังธรรมใหม่": {
+        "pm_candidates": []
+    },
+    "พลังประชาธิปไตย": {
+        "pm_candidates": [
+            {
+                "firstName": "พูลพิพัฒน์",
+                "lastName": "นิลรังสี",
+                "title": "นาย"
+            }
+        ]
+    },
+    "พลังประชารัฐ": {
+        "pm_candidates": [
+            {
+                "firstName": "ประยุทธ์",
+                "lastName": "จันทร์โอชา",
+                "title": "พล.อ."
+            }
+        ]
+    },
+    "พลังปวงชนไทย": {
+        "pm_candidates": []
+    },
+    "พลังศรัทธา": {
+        "pm_candidates": []
+    },
+    "พลังสังคม": {
+        "pm_candidates": [
+            {
+                "firstName": "วิฑูรย์",
+                "lastName": "ชลายนนาวิน",
+                "title": "นาย"
+            }
+        ]
+    },
+    "พลังแรงงานไทย": {
+        "pm_candidates": []
+    },
+    "พลังไทยดี": {
+        "pm_candidates": [
+            {
+                "firstName": "สาธุ",
+                "lastName": "อนุโมทามิ",
+                "title": "นาย"
+            }
+        ]
+    },
+    "พลังไทยรักชาติ": {
+        "pm_candidates": []
+    },
+    "พลังไทยรักไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "ธรรมรักษ์",
+                "lastName": "อิศรางกูร ณ อยุธยา",
+                "title": "พล.อ."
+            },
+            {
+                "firstName": "คฑาเทพ",
+                "lastName": "เตชะเดชเรืองกุล",
+                "title": "นาย"
+            }
+        ]
+    },
+    "พลเมืองไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "เอกพร",
+                "lastName": "รักความสุข",
+                "title": "นาย"
+            }
+        ]
+    },
+    "พัฒนาประเทศไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "ศิลปิน",
+                "lastName": "หาญผดุงธรรมะ",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ภราดรภาพ": {
+        "pm_candidates": [
+            {
+                "firstName": "ดำรงดิศ",
+                "lastName": "ดิศกุล",
+                "title": "ม.ร.ว."
+            }
+        ]
+    },
+    "ภาคีเครือข่ายไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "กฤษอนงค์",
+                "lastName": "สุวรรณวงศ์",
+                "title": "น.ส."
+            }
+        ]
+    },
+    "ภูมิใจไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "อนุทิน",
+                "lastName": "ชาญวีรกุล",
+                "title": "นาย"
+            }
+        ]
+    },
+    "มติประชา": {
+        "pm_candidates": []
+    },
+    "มหาชน": {
+        "pm_candidates": [
+            {
+                "firstName": "อภิรัต",
+                "lastName": "ศิรินาวิน",
+                "title": "นาย"
+            },
+            {
+                "firstName": "พาลินี",
+                "lastName": "งามพริ้ง",
+                "title": "นาย"
+            },
+            {
+                "firstName": "สุปกิจ",
+                "lastName": "คชเสนี",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ยางพาราไทย": {
+        "pm_candidates": []
+    },
+    "รวมพลังประชาชาติไทย": {
+        "pm_candidates": []
+    },
+    "รวมใจไทย": {
+        "pm_candidates": []
+    },
+    "รักษ์ธรรม": {
+        "pm_candidates": []
+    },
+    "รักษ์ผืนป่าประเทศไทย": {
+        "pm_candidates": []
+    },
+    "สยามพัฒนา": {
+        "pm_candidates": [
+            {
+                "firstName": "อเนก",
+                "lastName": "พันธุรัตน์",
+                "title": "นาย"
+            }
+        ]
+    },
+    "สังคมประชาธิปไตยไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "สมศักดิ์",
+                "lastName": "โกศัยสุข",
+                "title": "นาย"
+            }
+        ]
+    },
+    "อนาคตใหม่": {
+        "pm_candidates": [
+            {
+                "firstName": "ธนาธร",
+                "lastName": "จึงรุ่งเรืองกิจ",
+                "title": "นาย"
+            }
+        ]
+    },
+    "อนาคตไทย": {
+        "pm_candidates": []
+    },
+    "เพื่อคนไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "วิทยา",
+                "lastName": "อินาลา",
+                "title": "นาย"
+            }
+        ]
+    },
+    "เพื่อชาติ": {
+        "pm_candidates": []
+    },
+    "เพื่อชีวิตใหม่": {
+        "pm_candidates": [
+            {
+                "firstName": "กฤติวัฒน์",
+                "lastName": "กลางชัย",
+                "title": "นาย"
+            }
+        ]
+    },
+    "เพื่อธรรม": {
+        "pm_candidates": [
+            {
+                "firstName": "นลินี",
+                "lastName": "ทวีสิน",
+                "title": "นาง"
+            }
+        ]
+    },
+    "เพื่อนไทย": {
+        "pm_candidates": []
+    },
+    "เพื่อแผ่นดิน": {
+        "pm_candidates": []
+    },
+    "เพื่อไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "สุดารัตน์",
+                "lastName": "เกยุราพันธุ์",
+                "title": "คุณหญิง"
+            },
+            {
+                "firstName": "ชัชชาติ",
+                "lastName": "สิทธิพันธุ์",
+                "title": "นาย"
+            },
+            {
+                "firstName": "ชัยเกษม",
+                "lastName": "นิติสิริ",
+                "title": "นาย"
+            }
+        ]
+    },
+    "เพื่อไทยพัฒนา": {
+        "pm_candidates": []
+    },
+    "เศรษฐกิจใหม่": {
+        "pm_candidates": [
+            {
+                "firstName": "มิ่งขวัญ",
+                "lastName": "แสงสุวรรณ์",
+                "title": "นาย"
+            }
+        ]
+    },
+    "เสรีรวมไทย": {
+        "pm_candidates": [
+            {
+                "firstName": "เสรีพิศุทธ์",
+                "lastName": "เตมียเวส",
+                "title": "พล.ต.อ."
+            }
+        ]
+    },
+    "แทนคุณแผ่นดิน": {
+        "pm_candidates": []
+    },
+    "แผ่นดินธรรม": {
+        "pm_candidates": [
+            {
+                "firstName": "บรรจบ",
+                "lastName": "บรรณรุจิ",
+                "title": "ศ. พิเศษ ร.ท."
+            },
+            {
+                "firstName": "กรณ์",
+                "lastName": "มีดี",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ไทยธรรม": {
+        "pm_candidates": [
+            {
+                "firstName": "อโณทัย",
+                "lastName": "ดวงดารา",
+                "title": "นาย"
+            },
+            {
+                "firstName": "ภูษิต",
+                "lastName": "ภูปภัสศิริ",
+                "title": "นาย"
+            },
+            {
+                "firstName": "กิติกร",
+                "lastName": "วิชัยเรืองธรรม",
+                "title": "นาย"
+            }
+        ]
+    },
+    "ไทยรักษาชาติ": {
+        "pm_candidates": []
+    },
+    "ไทยรุ่งเรือง": {
+        "pm_candidates": []
+    },
+    "ไทยศรีวิไลย์": {
+        "pm_candidates": [
+            {
+                "firstName": "มงคลกิตติ์",
+                "lastName": "สุขสินธารานนท์",
+                "title": "นาย"
+            },
+            {
+                "firstName": "ณัชพล",
+                "lastName": "สุพัฒนะ",
+                "title": "นาย"
+            },
+            {
+                "firstName": "ภคอร",
+                "lastName": "จันทรคณา",
+                "title": "น.ส."
+            }
+        ]
+    },
+    "ไทรักธรรม": {
+        "pm_candidates": []
+    }
+}

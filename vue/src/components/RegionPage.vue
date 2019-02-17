@@ -88,6 +88,11 @@
                                             <i class="ml-1 fas fa-sort-amount-up" v-if="currentSort == 'candidateCount' && currentSortDir == 'asc'"></i>
                                             <i class="ml-1 fas fa-sort-amount-down" v-if="currentSort == 'candidateCount' && currentSortDir == 'desc'"></i>
                                         </th>
+                                        <th @click="sort('partyListCandidatesCount')">
+                                            จำนวน ส.ส.บัญชีรายชื่อ
+                                            <i class="ml-1 fas fa-sort-amount-up" v-if="currentSort == 'partyListCandidatesCount' && currentSortDir == 'asc'"></i>
+                                            <i class="ml-1 fas fa-sort-amount-down" v-if="currentSort == 'partyListCandidatesCount' && currentSortDir == 'desc'"></i>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,6 +102,7 @@
                                         </td>
                                         <td class="text-primary">พรรค{{ partyData.partyName }}</td>
                                         <td>{{ partyData.candidateCount || 0 }} / 350</td>
+                                        <td>{{ partyData.partyListCandidates ? partyData.partyListCandidates.length || 0 : 0 }} / 150</td>
                                     </tr>
                                 </tbody>
                             </table>
