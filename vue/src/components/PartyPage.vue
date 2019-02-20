@@ -16,27 +16,31 @@
                 </div>
                 <div class="col-12 text-center">
                     <h1>พรรค{{ partyName }}</h1>
-                    <table class="table mt-3">
+                    
+                    <table class="table mt-3 less-padding">
+                        <tr>
+                            <th colspan="2">จำนวนที่ลงสมัคร</th>
+                        </tr>
                         <tr>
                             <td class="text-right">
                                 <b>ส.ส. เขต</b>
                             </td>
-                            <td class="text-left">ลงสมัคร
-                                <b>{{ party ? party.candidateCount : 'N/A' }}</b> จาก 350 เขต</td>
+                            <td class="text-left">
+                                <b>{{ party ? party.candidateCount : 'N/A' }}</b> / 350 เขต</td>
                         </tr>
                         <tr>
                             <td class="text-right">
                                 <b>ส.ส. บัญชีรายชื่อ</b>
                             </td>
-                            <td class="text-left">ลงสมัคร
-                                <b>{{ party.partyListCandidates ? party.partyListCandidates.length || 0 : 'N/A' }}</b> จาก 350 ที่นั่ง</td>
+                            <td class="text-left">
+                                <b>{{ party.partyListCandidates ? party.partyListCandidates.length || 0 : 'N/A' }}</b> / 350 ที่นั่ง</td>
                         </tr>
                         <tr>
                             <td class="text-right">
                                 <b>รวม</b>
                             </td>
-                            <td class="text-left">ลงสมัคร
-                                <b>{{ (party ? party.candidateCount : 'N/A') + (party.partyListCandidates ? party.partyListCandidates.length || 0 : 'N/A') }}</b> จาก 500 ที่นั่ง</td>
+                            <td class="text-left">
+                                <b>{{ (party ? party.candidateCount : 'N/A') + (party.partyListCandidates ? party.partyListCandidates.length || 0 : 'N/A') }}</b> / 500 ที่นั่ง</td>
                         </tr>
                     </table>
                     <!-- <p>
@@ -206,6 +210,10 @@ export default {
 .party-name {
     font-size: 18pt;
     font-weight: bold;
+}
+
+.table.less-padding td, .table.less-padding th {
+    padding: 0.5rem;
 }
 
 .list-fade.move,

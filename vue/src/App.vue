@@ -25,7 +25,7 @@ export default {
         axios
             .all([
                 axios.get("/static/data/candidates.json"),
-                axios.get("/static/data/areas.json"),
+                axios.get("/static/data/areas_complete.json"),
                 axios.get("/static/data/parties.json")
             ])
             .then(

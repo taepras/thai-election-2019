@@ -36,7 +36,14 @@
                 <div class="col-12">
                     <!-- <hr> -->
                     <h1 class="mt-4">รายชื่อผู้สมัคร ส.ส. เขต</h1>
-                    <p>จังหวัด{{selectedProvince}}<br>เขต {{selectedArea}} ({{ selectedProvince == "กรุงเทพมหานคร" ? "เขต" : "อำเภอ"}}{{ areas[selectedProvince] ? districtList(areas[selectedProvince][selectedArea]) : ' -' }})</p>
+                    <p>
+                        จังหวัด <b>{{selectedProvince}}</b> เขต <b>{{selectedArea}}</b>
+                        <!-- <br> -->
+                        <!-- ({{ areas[selectedProvince] ? districtList(areas[selectedProvince][selectedArea]) : ' -' }}) -->
+                        <ul class="normal-space">
+                            <li v-for="(d, i) in districtList(areas[selectedProvince][selectedArea])" :key="i">{{ d }}</li>
+                        </ul>
+                        </p>
                     <hr>
                     <div class="alert alert-warning">
                         <b>หมายเหตุ</b>: แต่ละเขตเรียงหมายเลขไม่เหมือนกัน</div>
@@ -75,7 +82,8 @@
                         <floating-card :height="1">
                             <h3>พรรคที่ไม่ได้ลงสมัครในเขตนี้</h3>
                             <!-- <p>แตะที่ชื่อพรรคเพื่อดูรายละเอียดพรรค</p> -->
-                            <table class="table table-hover">
+                            <list-of-parties :parties="partiesWithoutCandidate" :smallerLogo="true"></list-of-parties>
+                            <!-- <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th colspan="2" @click="sort('partyName')">
@@ -105,7 +113,7 @@
                                         <td>{{ partyData.partyListCandidates ? partyData.partyListCandidates.length || 0 : 0 }} / 150</td>
                                     </tr>
                                 </tbody>
-                            </table>
+                            </table> -->
                         </floating-card>
                     </div>
                 </div>
@@ -118,6 +126,7 @@
 import Candidate from "@/components/Candidate.vue";
 import AccordionFloatingCard from "@/components/AccordionFloatingCard.vue";
 import FloatingCard from "@/components/FloatingCard.vue";
+import ListOfParties from "@/components/ListOfParties.vue";
 import Navbar from "@/components/Navbar.vue";
 import AreaFinder from "@/components/AreaFinder.vue";
 import Modal from "@/components/Modal.vue";
@@ -131,7 +140,8 @@ export default {
         FloatingCard,
         Navbar,
         AreaFinder,
-        Modal
+        Modal,
+        ListOfParties
     },
     props: ["candidates", "areas", "parties"],
     data() {
@@ -144,9 +154,6 @@ export default {
             },
             selectedProvince: "",
             selectedArea: "",
-            // non-candidate table
-            currentSort: "candidateCount",
-            currentSortDir: "desc"
         };
     },
     created() {
@@ -189,32 +196,8 @@ export default {
             var partiesNotInvolved = Object.assign({}, this.parties);
             this.candidatesInArea.forEach(candidate => {
                 delete partiesNotInvolved[candidate.party];
-            });
-
-            var notInvolvedList = [];
-            for (var p in partiesNotInvolved) {
-                notInvolvedList.push({
-                    ...partiesNotInvolved[p],
-                    partyName: p
-                });
-            }
-
-            var thisComponent = this;
-            console.log(Array.isArray(notInvolvedList));
-            if (Array.isArray(notInvolvedList))
-                notInvolvedList.sort(function(a, b) {
-                    let dif =
-                        a[thisComponent.currentSort] ==
-                        b[thisComponent.currentSort]
-                            ? 0
-                            : a[thisComponent.currentSort] >
-                              b[thisComponent.currentSort]
-                                ? 1
-                                : -1;
-                    return thisComponent.currentSortDir == "asc" ? dif : -dif;
-                });
-            console.log(notInvolvedList);
-            return notInvolvedList;
+            })
+            return partiesNotInvolved;
         }
     },
     methods: {
@@ -229,10 +212,30 @@ export default {
         },
         districtList(area) {
             var districtNames = [];
+            // console.log(area);
             for (var i in area) {
-                if (area[i].district) districtNames.push(area[i].district);
+                var name;
+                if (area[i].all_districts) name = "ทั้งจังหวัด";
+                if (area[i].district) {
+                    name = area[i].district;
+
+                    if (!area[i].subdistricts.all)
+                        if (area[i].subdistricts.only)
+                            name =
+                                name +
+                                " (เฉพาะ" +
+                                area[i].subdistricts.only.join(", ") +
+                                ")";
+                    if (area[i].subdistricts.except)
+                        name =
+                            name +
+                            " (ยกเว้น" +
+                            area[i].subdistricts.except.join(", ") +
+                            ")";
+                }
+                districtNames.push(name);
             }
-            return districtNames.join(", ");
+            return districtNames;
         },
         provinceToEnglish(province) {
             return utils.provinceMap[province];

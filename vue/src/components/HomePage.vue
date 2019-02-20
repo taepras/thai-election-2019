@@ -18,7 +18,9 @@
                         <router-link class="btn btn-outline-secondary btn-block" :to="{ 'path': '/all_parties' }">
                             ดูข้อมูลทุกพรรคที่ลงเลือกตั้ง 2562
                         </router-link>
-                        <p class="mb-5 mt-3">ติดต่อทีมงาน เสนอแนะ ติชม ได้ที่
+                        <p class="mb-5 mt-3">
+                            รายชื่ออัพเดทล่าสุดวันที่ 5 ก.พ. 2562
+                            <br>ติดต่อทีมงาน เสนอแนะ ติชม ได้ที่
                             <a href="mailto:taepras@gmail.com">taepras@gmail.com</a>
                         </p>
                     </div>

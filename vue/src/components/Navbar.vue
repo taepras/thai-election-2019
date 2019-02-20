@@ -35,20 +35,21 @@ export default {
     padding-left: 25px;
     padding-right: 25px;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    /* border-bottom: 3px solid #f00; */
 }
 
 .navbar .col {
-    color: #ffffff;
     padding-top: 0.3125rem;
     padding-bottom: 0.3125rem;
     font-size: 1.25rem;
     white-space: nowrap;
 }
 
-.navbar .col a,
-.navbar .col a:link,
-.navbar .col a:active,
-.navbar .col a:visited {
+.navbar-dark .col,
+.navbar-dark .col a,
+.navbar-dark .col a:link,
+.navbar-dark .col a:active,
+.navbar-dark .col a:visited {
     color: #ffffff;
 }
 

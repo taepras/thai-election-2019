@@ -19,19 +19,38 @@
                     <b>{{candidate.firstName}} {{candidate.lastName}}</b> จะได้...
                     <ol>
                         <li>เพิ่มโอกาสให้
-                            <b>{{candidate.title}} {{candidate.firstName}} {{candidate.lastName}}</b> เป็น <span class="highlight" :class="{ 'active': slotProps.isExpanded }">ส.ส. เขต</span></li>
-                        <li>เพิ่มที่นั่งให้ <span class="highlight" :class="{ 'active': slotProps.isExpanded }">ส.ส. บัญชีรายชื่อ</span>ของ
-                            <b>พรรค{{candidate.party}}</b> (ไม่จำเป็นต้องชนะเลือกตั้งในเขต)
+                            <b>{{candidate.title}} {{candidate.firstName}} {{candidate.lastName}}</b> เป็น
+                            <span class="highlight" :class="{ 'active': slotProps.isExpanded }">ส.ส. เขต</span>
+                        </li>
+                        <li>
+                            <span :class="{ 'strikethrough': !parties[candidate.party].partyListCandidates || parties[candidate.party].partyListCandidates.length == 0 }">
+                                เพิ่มที่นั่งให้
+                                <span class="highlight" :class="{ 'active': slotProps.isExpanded }">ส.ส. บัญชีรายชื่อ</span>ของ
+                                <b>พรรค{{candidate.party}}</b> (ไม่จำเป็นต้องชนะเลือกตั้งในเขต)
+                            </span>
+                            <ul>
+                                <li v-if="parties[candidate.party].partyListCandidates && parties[candidate.party].partyListCandidates.length > 0">
+                                    พรรคนี้ส่งผู้สมัคร ส.ส. บัญชีรายชื่อ
+                                    <b>{{ parties[candidate.party].partyListCandidates.length }} จาก 150</b> ที่นั่ง
+                                </li>
+                                <li v-else class="text-muted">
+                                    <i>[พรรคนี้ไม่ได้ลงสมัคร ส.ส. บัญชีรายชื่อ]</i>
+                                </li>
+                            </ul>
                         </li>
                         <li>
                             <span :class="{ 'strikethrough': parties[candidate.party].pm_candidates.length == 0 }">
-                                ถ้า <b>พรรค{{candidate.party}}</b> ได้ที่นั่ง ส.ส. ในสภา 5% ขึ้นไป <span class="highlight" :class="{ 'active': slotProps.isExpanded }">แคนดิเดตนายกรัฐมนตรี</span>ของพรรค ต่อไปนี้ มีสิทธิ์ได้รับเลือกในสภา:
+                                ถ้า
+                                <b>พรรค{{candidate.party}}</b> ได้ที่นั่ง ส.ส. ในสภา 5% ขึ้นไป
+                                <span class="highlight" :class="{ 'active': slotProps.isExpanded }">แคนดิเดตนายกรัฐมนตรี</span>ของพรรค ต่อไปนี้ มีสิทธิ์ได้รับเลือกในสภา:
                             </span>
                             <ul>
                                 <li v-for="(c, i) in parties[candidate.party].pm_candidates" :key="i">
                                     {{ c.title }} {{ c.firstName }} {{ c.lastName }}
                                 </li>
-                                <li v-if="parties[candidate.party].pm_candidates.length == 0" class="text-muted"><i>[พรรคนี้ไม่ได้ส่งชื่อแคนดิเดตนายกฯ]</i></li>
+                                <li v-if="parties[candidate.party].pm_candidates.length == 0" class="text-muted">
+                                    <i>[พรรคนี้ไม่ได้ส่งชื่อแคนดิเดตนายกฯ]</i>
+                                </li>
                             </ul>
                         </li>
                     </ol>
@@ -82,7 +101,7 @@ export default {
 
 .logo {
     /* width: 40px; */
-    height: calc(100% + .5rem);
+    height: calc(100% + 0.5rem);
     margin: -0.25rem 0;
     background-size: contain;
     background-position: center center;
@@ -100,7 +119,8 @@ export default {
     padding-right: 5px;
 }
 
-ul, ol {
+ul,
+ol {
     padding-top: 5px;
     padding-bottom: 5px;
     padding-inline-start: 20px;
@@ -110,7 +130,7 @@ ol {
     padding-inline-start: 15px;
 }
 
-li {
+ul:not(.normal-space) li {
     padding-top: 5px;
     padding-bottom: 5px;
 }

@@ -10,13 +10,13 @@
         </div>
         <div class="form-group">
             <label>เขตเลือกตั้ง
-                <a href="http://www.ratchakitcha.soc.go.th/DATA/PDF/2561/A/101/T_0005.PDF" target="_blank">
+                <!-- <a href="http://www.ratchakitcha.soc.go.th/DATA/PDF/2561/A/101/T_0005.PDF" target="_blank">
                     <i class="far fa-question-circle"></i>
-                </a>
+                </a> -->
             </label>
             <select v-model="selectedArea" name="area" class="form-control" id="areas" @change="update">
                 <option v-for="(data, areaNumber) in areas[selectedProvince]" :key="areaNumber" :value="areaNumber">
-                    เขต {{ areaNumber }} ({{ selectedProvince == "กรุงเทพมหานคร" ? "เขต" : "อำเภอ"}}{{ districtList(areas[selectedProvince][areaNumber]) }})
+                    เขต {{ areaNumber }} ({{ districtList(areas[selectedProvince][areaNumber]) }})
                 </option>
             </select>
         </div>
@@ -55,8 +55,21 @@ export default {
         },
         districtList(area) {
             var districtNames = [];
+            // console.log(area)
             for (var i in area) {
-                if (area[i].district) districtNames.push(area[i].district);
+                var name
+                if (area[i].all_districts)
+                    name = 'ทั้งจังหวัด'
+                if (area[i].district) {
+                    name = area[i].district
+                    
+                    if (!area[i].subdistricts.all)
+                        if (area[i].subdistricts.only)
+                            name = name + ' (เฉพาะ' + area[i].subdistricts.only.join(', ') + ')'
+                        if (area[i].subdistricts.except)
+                            name = name + ' (ยกเว้น' + area[i].subdistricts.except.join(', ') + ')'
+                }
+                districtNames.push(name)
             }
             return districtNames.join(", ");
         },
