@@ -39,7 +39,7 @@
                             </ul>
                         </li>
                         <li>
-                            <span :class="{ 'strikethrough': parties[candidate.party].pm_candidates.length == 0 }">
+                            <span :class="{ 'strikethrough': !parties[candidate.party].pm_candidates || parties[candidate.party].pm_candidates.length == 0 }">
                                 ถ้า
                                 <b>พรรค{{candidate.party}}</b> ได้ที่นั่ง ส.ส. ในสภา 5% ขึ้นไป
                                 <span class="highlight" :class="{ 'active': slotProps.isExpanded }">แคนดิเดตนายกรัฐมนตรี</span>ของพรรค ต่อไปนี้ มีสิทธิ์ได้รับเลือกในสภา:
@@ -48,7 +48,7 @@
                                 <li v-for="(c, i) in parties[candidate.party].pm_candidates" :key="i">
                                     {{ c.title }} {{ c.firstName }} {{ c.lastName }}
                                 </li>
-                                <li v-if="parties[candidate.party].pm_candidates.length == 0" class="text-muted">
+                                <li v-if="!parties[candidate.party].pm_candidates || parties[candidate.party].pm_candidates.length == 0" class="text-muted">
                                     <i>[พรรคนี้ไม่ได้ส่งชื่อแคนดิเดตนายกฯ]</i>
                                 </li>
                             </ul>
