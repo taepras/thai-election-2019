@@ -91,5 +91,23 @@ export default {
   },
   provinceToUrl: function(province) {
     return this.provinceMap[province].toLowerCase().replace(/\s/g, "");
+  },
+  thaiReorder: function (s) {
+    if (Number.isInteger(s))
+      return s
+    var sArr =  s.split('')
+    for (var i in sArr) {
+      if (['เ', 'แ', 'โ', 'ใ', 'ไ'].indexOf(sArr[i]) >= 0) {
+        var temp = sArr[i]
+        sArr[i] = sArr[i + 1]
+        sArr[i + 1] = temp
+      }
+    }
+    return sArr.join('')
+  },
+  thaiCompare: function (a, b) {
+    var ta = this.thaiReorder(a)
+    var tb = this.thaiReorder(b)
+    return ta == tb ? 0 : ta > tb ? 1 : -1
   }
 };

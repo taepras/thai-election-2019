@@ -38,9 +38,7 @@
                     <h1 class="mt-4">รายชื่อผู้สมัคร ส.ส. เขต</h1>
                     <p>
                         จังหวัด <b>{{selectedProvince}}</b> เขต <b>{{selectedArea}}</b>
-                        <!-- <br> -->
-                        <!-- ({{ areas[selectedProvince] ? districtList(areas[selectedProvince][selectedArea]) : ' -' }}) -->
-                        <ul class="normal-space">
+                        <ul class="normal-space" v-if="areas[selectedProvince]">
                             <li v-for="(d, i) in districtList(areas[selectedProvince][selectedArea])" :key="i">{{ d }}</li>
                         </ul>
                         </p>

@@ -18,8 +18,11 @@ parties = json.load(open("../parties.json", "r", encoding="utf-8"))
 
 key = ''
 
+# analysis_mode = True
+analysis_mode = False
+
 # regex
-re_name_title = r'(นาย|หม่อม|นาง|นางสาว|คุณหญิง|ศาสตรา|ผู้ช่วย|รอง|((ว่าที่)?(พัน|พล|นาวา|(จ่า)?สิบ|ร้อย|เรือ)(ตำรวจ|อากาศ|เรือ)?(ตรี|โท|เอก))|ดาบตำรวจ)'
+re_name_title = r'(นาย|หม่อม|นาง|นางสาว|คุณหญิง|(รอง|ผู้ช่วย)?ศาสตราจารย์|((ว่าที่)?(พัน(จ่า)?|พล|นาวา|(จ่า)?สิบ|จ่า|ร้อย|เรือ|ดาบ)(ตำรวจ|อากาศ|เรือ)?(ตำรวจ|ตรี|โท|เอก)))[^าะีิุูัืึ]'
 
 regexlist = [
     (r'ํา','ำ'),
@@ -27,21 +30,15 @@ regexlist = [
     (r'(/|\()?.*\.\.\.?\.?', ''),
     (r'อำเภอ \n', 'อำเภอ'),
     (r'(เลขที่|ตำบล|อำเภอ|จังหวัด|กรุงเทพมหานคร).*[๐-๙0-9]{5}[๐-๙0-9]*', ''),
-    (r'(' + re_name_title + r'[^ ]{2}.*|พรรค[^ ]*)', r'"\1"'),
-    # (r'(เลขที่|ตำบล|อำเภอ|จังหวัด|กรุงเทพมหานคร).*"', '"'),
-    # (r'.*[๐-๙0-9]{5}[๐-๙0-9]*"', '"'),
-    # (r'(ที่อยู่|เลขที่|ตำบล|อำเภอ|จังหวัด|กรุงเทพมหานคร).*"', '"'),
-    # (r'".*[๐-๙0-9]{5}[๐-๙0-9]*', '"'),
-    # (r'[๐-๙0-9]{5}[๐-๙0-9]*.*"', '"'),
+    (r'(' + re_name_title + r'[^ ].*|พรรค[^ ]*)', r'"\1"'),
     (r'".*"', r'\n\g<0>\n'),
+    #(r'(เลขที่|ตำบล|อำเภอ|จังหวัด|กรุงเทพมหานคร).*"', '"'),
     (r'[^\"]*\n', '\n'),
     (r'เลขที่.*"', '"'),
-    # (r'" *(อําเภอ|อำเภอ|จังหวัด|กรุงเทพมหานคร).*',''),
-    # (r'ร้อยเอ็ด [๐-๙]{5}? +', ''),
     (r' +"', '"'),
     (r'("|\||:|,)', ''),
     (r'.+อำเภอ.*\n', ''),
-    # (r'^[^ ]*\n', '\n'),
+    (r'^[^ ]\n', ''),
     (r'\n$', ''),
 ]
 
@@ -58,31 +55,32 @@ while True:
 
 text = re.sub('^\n', '', text)
 
-# outfile.write(text)
-# outfile.close()
+if analysis_mode:
+    outfile.write(text)
+    outfile.close()
+else:
+    listOfLines = text.split('\n')
 
-listOfLines = text.split('\n')
+    for line in listOfLines:
+        if line.find('พรรค') == 0:
+            prevKey = key
+            if len(prevKey) > 0:
+                parties[prevKey]['partyListCandidatesCount'] = len(parties[prevKey]['partyListCandidates'])
 
-for line in listOfLines:
-    if line.find('พรรค') == 0:
-        prevKey = key
-        if len(prevKey) > 0:
-            parties[prevKey]['partyListCandidatesCount'] = len(parties[prevKey]['partyListCandidates'])
+            key = line.split('พรรค')[1].strip()
+            if key not in parties:
+                parties[key] = dict()
+            if 'partyListCandidates' not in parties[key]:
+                parties[key]['partyListCandidates'] = []
+        else:
+            parties[key]['partyListCandidates'].append(line.strip())
 
-        key = line.split('พรรค')[1].strip()
-        if key not in parties:
-            parties[key] = dict()
-        if 'partyListCandidates' not in parties[key]:
-            parties[key]['partyListCandidates'] = []
-    else:
-        parties[key]['partyListCandidates'].append(line.strip())
+    for p in parties:
+        if 'partyListCandidates' not in parties[p]:
+            parties[p]['partyListCandidates'] = []
 
-for p in parties:
-    if 'partyListCandidates' not in parties[p]:
-        parties[p]['partyListCandidates'] = []
-
-# print(json.dumps(jsonDict, sort_keys=True, indent=4, separators=(',', ': ')))
-# print(json)
-outfile.write(json.dumps(parties, ensure_ascii=False, sort_keys=True, indent=4, separators=(',', ': ')))
-# outfile = open("out.csv", "w") 
-outfile.close()
+    # print(json.dumps(jsonDict, sort_keys=True, indent=4, separators=(',', ': ')))
+    # print(json)
+    outfile.write(json.dumps(parties, ensure_ascii=False, sort_keys=True, indent=4, separators=(',', ': ')))
+    # outfile = open("out.csv", "w") 
+    outfile.close()

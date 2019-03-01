@@ -100,17 +100,9 @@ export default {
             console.log(Array.isArray(allParties));
             if (Array.isArray(allParties))
                 allParties.sort(function(a, b) {
-                    let dif =
-                        a[thisComponent.currentSort] ==
-                        b[thisComponent.currentSort]
-                            ? 0
-                            : a[thisComponent.currentSort] >
-                              b[thisComponent.currentSort]
-                                ? 1
-                                : -1;
+                    let dif = utils.thaiCompare(a[thisComponent.currentSort], b[thisComponent.currentSort])
                     return thisComponent.currentSortDir == "asc" ? dif : -dif;
                 });
-            // console.log(allParties);
             return allParties;
         }
     },

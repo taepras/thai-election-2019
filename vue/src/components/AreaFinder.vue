@@ -3,7 +3,7 @@
         <div class="form-group">
             <label>จังหวัด</label>
             <select v-model="selectedProvince" name="province" class="form-control" id="provinces" @change="provinceChanged">
-                <option v-for="(regions, province) in areas" :key="province" :value="province">
+                <option v-for="province in sortedProvinces" :key="province" :value="province">
                     {{province}}
                 </option>
             </select>
@@ -41,6 +41,14 @@ export default {
         );
         this.selectedArea = this.$route.params.area;
         this.init();
+    },
+    computed :{
+        sortedProvinces () {
+            console.log(Object.keys(this.areas))
+            return Object.keys(this.areas).sort(function (a, b) {
+                return utils.thaiCompare(a, b)
+            })
+        }
     },
     methods: {
         init() {

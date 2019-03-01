@@ -24,7 +24,7 @@ export default {
         var thisComponent = this;
         axios
             .all([
-                axios.get("/static/data/candidates.json"),
+                axios.get("/static/data/candidates_areas.json"),
                 axios.get("/static/data/areas_complete.json"),
                 axios.get("/static/data/parties.json")
             ])
