@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul class="nav nav-tabs mb-2">
+        <!-- <ul class="nav nav-tabs mb-2">
             <li class="nav-item">
                 <a class="nav-link" :class="{ 'active': mode == 'search' }" href="#" @click=" mode = 'search' ">ค้นหาเขต</a>
             </li>
@@ -13,10 +13,10 @@
                 <label>ค้นหาเขตเลือกตั้งจากรหัสไปรษณีย์</label>
                 <input type="number" name="" id="" class="form-control" placeholder="XXXXX">
             </div>
-        </template>
-        <template v-else>
+        </template> -->
+        <template>
             <div class="form-group">
-                <label>จังหวัด / เขตเลือกตั้ง</label>
+                <label>เลือกจังหวัดและเขตเลือกตั้ง</label>
                 <select v-model="selectedProvince" name="province" class="form-control" id="provinces" @change="provinceChanged">
                     <option v-for="province in sortedProvinces" :key="province" :value="province">
                         {{province}}

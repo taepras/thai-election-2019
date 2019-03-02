@@ -1,16 +1,25 @@
 <template>
     <div>
-        <label>จัดเรียงตาม</label>
-        <select v-model="sortBy" class="form-control mb-3">
-            <option value="allCount desc">จำนวนผู้ลงสมัคร ส.ส. ทั้งหมด (มาก-น้อย)</option>
-            <option value="allCount asc">จำนวนผู้ลงสมัคร ส.ส. ทั้งหมด (น้อย-มาก)</option>
-            <option value="partyName asc">ชื่อพรรค (ก-ฮ)</option>
-            <option value="partyName desc">ชื่อพรรค (ฮ-ก)</option>
-            <option value="candidateCount desc">จำนวนผู้ลงสมัคร ส.ส. เขต (มาก-น้อย)</option>
-            <option value="candidateCount asc">จำนวนผู้ลงสมัคร ส.ส. เขต (น้อย-มาก)</option>
-            <option value="partyListCandidateCount desc">จำนวนผู้ลงสมัคร ส.ส. บัญชีรายชื่อ (มาก-น้อย)</option>
-            <option value="partyListCandidateCount asc">จำนวนผู้ลงสมัคร ส.ส. บัญชีรายชื่อ (น้อย-มาก)</option>
-        </select>
+        <div class="form-group">
+            <label>ค้นหาจากชื่อพรรค</label>
+            <div class="input-group">
+                <input type="text" class="form-control with-search" v-model="partyQuery" placeholder="เช่น พรรคประชาชนไทย">
+                <span class="search-clear fas fa-times" @click="partyQuery = ''"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>จัดเรียงตาม</label>
+            <select v-model="sortBy" class="form-control">
+                <option value="allCount desc">จำนวนผู้ลงสมัคร ส.ส. ทั้งหมด (มาก-น้อย)</option>
+                <option value="allCount asc">จำนวนผู้ลงสมัคร ส.ส. ทั้งหมด (น้อย-มาก)</option>
+                <option value="partyName asc">ชื่อพรรค (ก-ฮ)</option>
+                <option value="partyName desc">ชื่อพรรค (ฮ-ก)</option>
+                <option value="candidateCount desc">จำนวนผู้ลงสมัคร ส.ส. เขต (มาก-น้อย)</option>
+                <option value="candidateCount asc">จำนวนผู้ลงสมัคร ส.ส. เขต (น้อย-มาก)</option>
+                <option value="partyListCandidateCount desc">จำนวนผู้ลงสมัคร ส.ส. บัญชีรายชื่อ (มาก-น้อย)</option>
+                <option value="partyListCandidateCount asc">จำนวนผู้ลงสมัคร ส.ส. บัญชีรายชื่อ (น้อย-มาก)</option>
+            </select>
+        </div>
 
         <!-- <p>แตะที่ชื่อพรรคเพื่อดูรายละเอียดพรรค</p> -->
         <table class="table table-hover" :class="{ 'logo-sm': smallerLogo }">
@@ -48,6 +57,9 @@
                     <!-- <td>{{ partyData.candidateCount || 0 }} / 350</td>
                                 <td>{{ partyData.partyListCandidateCount || 0 }} / 150</td> -->
                 </tr>
+                <tr v-if="partiesFormatter.length == 0">
+                    <td colspan="2" class="text-center">ขออภัย ไม่มีพรรคที่ตรงกับคำค้นหาของท่าน</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -75,7 +87,8 @@ export default {
     props: ["candidates", "areas", "parties", "smallerLogo"],
     data() {
         return {
-            sortBy: "allCount desc"
+            sortBy: "allCount desc",
+            partyQuery: ""
             // currentSort: "candidateCount",
             // currentSortDir: "desc"
         };
@@ -95,15 +108,23 @@ export default {
                     partyName: p
                 });
             }
-
             var thisComponent = this;
-            console.log(Array.isArray(allParties));
-            if (Array.isArray(allParties))
-                allParties.sort(function(a, b) {
-                    let dif = utils.thaiCompare(a[thisComponent.currentSort], b[thisComponent.currentSort])
+            var matchedParties = allParties.filter(function(p) {
+                return (
+                    ("พรรค" + p.partyName).indexOf(thisComponent.partyQuery) >=
+                    0
+                );
+            });
+
+            if (Array.isArray(matchedParties))
+                matchedParties.sort(function(a, b) {
+                    let dif = utils.thaiCompare(
+                        a[thisComponent.currentSort],
+                        b[thisComponent.currentSort]
+                    );
                     return thisComponent.currentSortDir == "asc" ? dif : -dif;
                 });
-            return allParties;
+            return matchedParties;
         }
     },
     methods: {
@@ -167,5 +188,22 @@ td .logo {
 .list-fade-enter, .list-fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
     opacity: 0;
     /* transform: translateY(-10px); */
+}
+
+.search-clear {
+    position: absolute;
+    right: 12px;
+    top: 0;
+    bottom: 0;
+    height: 14px;
+    margin: auto;
+    font-size: 14px;
+    cursor: pointer;
+    color: #333;
+    z-index: 5;
+}
+
+.input-group .with-search {
+    border-radius: 10px;
 }
 </style>

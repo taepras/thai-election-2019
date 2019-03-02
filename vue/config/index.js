@@ -38,13 +38,15 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    // index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../../../thai-election-2019-dist/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    // assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../../../thai-election-2019-dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/thai-election-2019/vue/dist/',
-    // assetsPublicPath: '/',
+    // assetsPublicPath: '/thai-election-2019/vue/dist/',
+    assetsPublicPath: '/',
 
     /**
      * Source Maps
