@@ -11,13 +11,13 @@
             <div class="row">
                 <div class="col-12 text-center my-3 mt-4">
                     <div style="max-width: 120px" class="m-auto">
-                        <div class="party-logo" :style="'background-image:url(\'' + partyLogo + '\')'"></div>
+                        <div class="party-logo" :class="{ 'invalid': !isValid }" :style="'background-image:url(\'' + partyLogo + '\')'"></div>
                     </div>
                 </div>
                 <div class="col-12 text-center">
-                    <h1>พรรค{{ partyName }}</h1>
-                    
-                    <table class="table mt-3 less-padding">
+                    <h1 :class="{ 'strikethrough': !isValid }">พรรค{{ partyName }}</h1>
+                    <div class="alert alert-danger" v-if="!isValid"><span v-html="party.comments"></span></div>
+                    <table class="table mt-3 less-padding" :class="{ 'invalid': !isValid }">
                         <tr>
                             <th colspan="2">จำนวนที่ลงสมัคร</th>
                         </tr>
@@ -57,7 +57,7 @@
                 <div class="col-12">
                     <hr class="my-4">
                     <floating-card class="mt-3" :height="1">
-                        <h2>แคนดิเดตนายกรัฐมนตรี</h2>
+                        <h2 :class="{ 'strikethrough': !isValid }">แคนดิเดตนายกรัฐมนตรี</h2>
                         <table class="table">
                             <tr v-for="(c, i) in party.pm_candidates" :key="i">
                                 <td>
@@ -74,8 +74,8 @@
                     </floating-card>
 
                     <floating-card :height="1">
-                        <h2>ผู้สมัคร ส.ส. บัญชีรายชื่อ</h2>
-                        <p>ลงสมัคร {{ party.partyListCandidates ? party.partyListCandidates.length || 0 : 0 }} ที่นั่งจาก 150 ที่นั่ง</p>
+                        <h2 :class="{ 'strikethrough': !isValid }">ผู้สมัคร ส.ส. บัญชีรายชื่อ</h2>
+                        <p :class="{ 'invalid': !isValid }">ลงสมัคร {{ party.partyListCandidates ? party.partyListCandidates.length || 0 : 0 }} ที่นั่งจาก 150 ที่นั่ง</p>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -174,6 +174,9 @@ export default {
     computed: {
         partyLogo() {
             return "/static/logo/" + this.partyName + ".png";
+        },
+        isValid() {
+            return !this.party.dissolved
         }
     },
     beforeMount() {

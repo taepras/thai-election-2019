@@ -27,7 +27,7 @@ export default {
 
 <style>
 .floating-card {
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 9px 30px rgba(0, 0, 0, 0.12);
     border: none;
     transition: all 0.5s;
     border-radius: 10px;

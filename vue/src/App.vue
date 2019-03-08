@@ -167,4 +167,29 @@ h6 {
 .clickable:hover {
     opacity: 0.8;
 }
+
+.invalid {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.logo.invalid {
+    filter: grayscale();
+    opacity: .4;
+}
+
+.btn {
+    box-shadow: 0px 9px 30px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s;
+}
+
+.btn:hover {
+    box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.12);
+    transform: translateY(2px);
+}
 </style>

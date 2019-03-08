@@ -45,11 +45,12 @@
             <tbody>
                 <tr v-for="(partyData, i) in partiesFormatter" :key="i" @click="goToPartyPage(partyData.partyName)" class="clickable">
                     <td>
-                        <div class="logo" :style="'background-image:url(\'/static/logo/' + partyData.partyName + '.png\')'"></div>
+                        <div class="logo" :class="{ 'invalid': !isValid(partyData.partyName) }" :style="'background-image:url(\'/static/logo/' + partyData.partyName + '.png\')'"></div>
                     </td>
-                    <td class="">
-                        <span class="accent text-primary">พรรค{{ partyData.partyName }}</span>
+                    <td class="" :class="{ 'invalid': !isValid(partyData.partyName) }">
+                        <span class="accent" :class="{ 'text-primary': isValid(partyData.partyName) }">พรรค{{ partyData.partyName }}</span>
                         <!-- <br><b>จำนวนที่ลงสมัคร</b> -->
+                            
                         <br>สมัคร ส.ส. เขต {{ partyData.candidateCount || 0 }} / 350 เขต
                         <br>บัญชีรายชื่อ {{ partyData.partyListCandidateCount || 0 }} / 150 ที่นั่ง
                         <br>รวม {{ partyData.allCount || 0 }} / 500 ที่นั่ง
@@ -130,6 +131,9 @@ export default {
     methods: {
         goToPartyPage(partyName) {
             this.$router.push("/party/" + partyName);
+        },
+        isValid(partyName) {
+            return !this.parties[partyName].dissolved
         },
         sort(s) {
             //if s == current sort, reverse

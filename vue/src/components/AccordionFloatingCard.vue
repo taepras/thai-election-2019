@@ -1,5 +1,5 @@
 <template>
-    <floating-card :class="{ 'expanded': isExpanded }">
+    <floating-card :class="{ 'expanded': isExpanded }" class="accordion-float">
         <accordion @update="onAccordionUpdate">
             <template v-slot:above class="clickable">
                 <div class="row">
@@ -51,6 +51,11 @@ export default {
 
 .fa-chevron-down.expanded {
     transform: rotate(180deg);
+}
+
+.accordion-float.floating-card:not(.expanded):hover {
+    box-shadow: 0px 15px 50px rgba(0, 0, 0, 0.12);
+    transform: translateY(-4px);
 }
 </style>
 

@@ -2,19 +2,22 @@
     <accordion-floating-card>
         <template v-slot:above>
             <div class="row candidate">
-                <div class="col-2 floating-card-col candidate-number">{{ +candidate.number }}</div>
+                <div class="col-2 floating-card-col candidate-number" :class="{ 'invalid': !isValid }">{{ +candidate.number }}</div>
                 <div class="col-2 floating-card-col text-center">
-                    <div class="logo" :style="'background-image:url(\'' + partyLogo + '\')'"></div>
+                    <div class="logo" :style="'background-image:url(\'' + partyLogo + '\')'" :class="{ 'invalid': !isValid }"></div>
                 </div>
                 <div class="col-8 floating-card-col text-nowrap party-name">
                     <span>
-                        <b class="accent">พรรค{{candidate.party}}</b><br> {{candidate.title}} {{candidate.firstName}} {{candidate.lastName}}</span>
+                        <b class="accent" :class="{ 'invalid': !isValid }">พรรค{{candidate.party}}</b><br>
+                        <span :class="{ 'invalid': !isValid }">{{candidate.title}} {{candidate.firstName}} {{candidate.lastName}}</span>
+                    </span>
                 </div>
             </div>
         </template>
         <template v-slot:below="slotProps">
             <div class="row candidate-details">
                 <div class="col">
+                    <template v-if="isValid">
                     ถ้าเลือก
                     <b>{{candidate.firstName}} {{candidate.lastName}}</b> จะได้...
                     <ol>
@@ -23,7 +26,7 @@
                             <span class="highlight" :class="{ 'active': slotProps.isExpanded }">ส.ส. เขต</span>
                         </li>
                         <li>
-                            <span :class="{ 'strikethrough': !parties[candidate.party].partyListCandidates || parties[candidate.party].partyListCandidates.length == 0 }">
+                            <span :class="{ 'invalid': !parties[candidate.party].partyListCandidates || parties[candidate.party].partyListCandidates.length == 0 }">
                                 เพิ่มที่นั่งให้
                                 <span class="highlight" :class="{ 'active': slotProps.isExpanded }">ส.ส. บัญชีรายชื่อ</span>ของ
                                 <b>พรรค{{candidate.party}}</b> (ไม่จำเป็นต้องชนะเลือกตั้งในเขต)
@@ -39,7 +42,7 @@
                             </ul>
                         </li>
                         <li>
-                            <span :class="{ 'strikethrough': !parties[candidate.party].pm_candidates || parties[candidate.party].pm_candidates.length == 0 }">
+                            <span :class="{ 'invalid': !parties[candidate.party].pm_candidates || parties[candidate.party].pm_candidates.length == 0 }">
                                 ถ้า
                                 <b>พรรค{{candidate.party}}</b> ได้ที่นั่ง ส.ส. ในสภา 5% ขึ้นไป
                                 <span class="highlight" :class="{ 'active': slotProps.isExpanded }">แคนดิเดตนายกรัฐมนตรี</span>ของพรรค ต่อไปนี้ มีสิทธิ์ได้รับเลือกในสภา:
@@ -54,6 +57,15 @@
                             </ul>
                         </li>
                     </ol>
+                    </template>
+
+                    <div class="mb-3" v-else>
+                        ถ้าเลือก
+                        <b>{{candidate.firstName}} {{candidate.lastName}}</b> จะเป็น <b class="text-danger">บัตรเสีย</b>
+                        <ul>
+                            <li><span v-html="parties[candidate.party].comments"></span></li>
+                        </ul>
+                    </div>
 
                     <!-- <a target="_blank" :href="'http://www.google.com/search?q=พรรค' + candidate.party + '+นโยบาย'" class="btn btn-primary btn-block">
                                 ค้นหานโยบายพรรคใน Google
@@ -81,6 +93,9 @@ export default {
     computed: {
         partyLogo() {
             return "/static/logo/" + this.candidate.party + ".png";
+        },
+        isValid() {
+            return !this.parties[this.candidate.party].dissolved;
         }
     }
 };

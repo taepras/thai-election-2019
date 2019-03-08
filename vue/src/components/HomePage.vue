@@ -20,8 +20,11 @@
                         </router-link>
                         <p class="mb-5 mt-3">
                             <small>
-                            รายชื่ออัพเดทล่าสุดวันที่ 28 ก.พ. 2562
-                            <br>ติดต่อทีมงาน เสนอแนะ ติชม ได้ที่
+                            รายชื่ออัพเดทล่าสุดวันที่ 7 มี.ค. 2562
+                            <br>
+                            ทีมงาน: <a href="https://taepras.com">ธนวิชญ์ ประสงค์พงษ์ชัย</a>, <a href="https://github.com/xvista">อติคุณ ออไอศูรย์</a> 
+                            <br>
+                            ติดต่อทีมงาน เสนอแนะ ติชม ได้ที่
                             <a href="mailto:taepras@gmail.com">taepras@gmail.com</a>
                             </small>
                         </p>
