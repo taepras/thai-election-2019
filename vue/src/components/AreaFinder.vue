@@ -7,14 +7,25 @@
             <li class="nav-item">
                 <a class="nav-link" :class="{ 'active': mode == 'browse' }" href="#" @click=" mode = 'browse' ">เลือกจากรายชื่อเขต</a>
             </li>
-        </ul>
+        </ul> -->
         <template v-if=" mode == 'search' ">
             <div class="form-group">
                 <label>ค้นหาเขตเลือกตั้งจากรหัสไปรษณีย์</label>
                 <input type="number" name="" id="" class="form-control" placeholder="XXXXX">
             </div>
-        </template> -->
-        <template>
+        </template>
+        <template v-if=" mode == 'address' ">
+            <div class="form-group">
+                <ThailandAutoComplete v-model="subdistrict" type="district" @select="addressSelected" label="ตำบล/แขวง" placeholder=""/>
+            </div>
+            <div class="form-group">
+                <ThailandAutoComplete v-model="district" type="amphoe" @select="addressSelected" label="อำเภอ/เขต" placeholder=""/>
+            </div>
+            <div class="form-group">
+                <ThailandAutoComplete v-model="province" type="province" @select="addressSelected" label="จังหวัด" placeholder=""/>
+            </div>
+        </template>
+        <template v-if=" mode == 'browse' ">
             <div class="form-group">
                 <label>เลือกจังหวัดและเขตเลือกตั้ง</label>
                 <select v-model="selectedProvince" name="province" class="form-control" id="provinces" @change="provinceChanged">
@@ -36,15 +47,22 @@
 
 <script>
 import utils from "@/utils.js";
+import ThailandAutoComplete from "vue-thailand-address-autocomplete";
 
 export default {
     name: "AreaFinder",
     props: ["areas", "value"],
+    components: {
+      ThailandAutoComplete
+    },
     data() {
         return {
+            subdistrict: "",
+            district: "",
+            province: "",
             selectedProvince: "",
             selectedArea: "",
-            mode: "browse"
+            mode: "address"
         };
     },
     created() {
@@ -111,6 +129,60 @@ export default {
                 selectedProvince: this.selectedProvince,
                 selectedArea: this.selectedArea
             });
+        },
+        addressSelected (address) {
+          this.subdistrict = address.district;
+          this.district = address.amphoe;
+          this.province = address.province;
+
+          address = {
+            subdistrict: (this.province === "กรุงเทพมหานคร" ? "แขวง" : "ตำบล") + this.subdistrict,
+            district: (this.province === "กรุงเทพมหานคร" ? "เขต" : "อำเภอ") + this.district,
+            province: this.province
+          };
+
+          const provinceInfo = this.areas[address.province];
+          const provinceAreaNumbers = Object.keys(provinceInfo);
+
+          // Case 1: one area in one province
+          if (provinceAreaNumbers.length === 1) {
+            this.selectedProvince = address.province;
+            this.selectedArea = "1";
+            this.update();
+            return;
+          }
+
+          console.log(provinceAreaNumbers);
+          let matchedAreaNumber = null
+          provinceAreaNumbers.forEach(provinceAreaNumber => {
+            provinceInfo[provinceAreaNumber].forEach(districtInfo => {
+              if (districtInfo.district === address.district) {
+                if ("all" in districtInfo.subdistricts && districtInfo.subdistricts.all === true) {
+                  matchedAreaNumber = provinceAreaNumber;
+                } else if ("only" in districtInfo.subdistricts) {
+                  districtInfo.subdistricts.only.forEach(subdistrict => {
+                    if (subdistrict === address.subdistrict) {
+                      matchedAreaNumber = provinceAreaNumber;
+                    }
+                  })
+                } else if ("except" in districtInfo.subdistricts) {
+                  let found = false;
+                  districtInfo.subdistricts.except.forEach(subdistrict => {
+                    if (subdistrict === address.subdistrict) {
+                      found = true;
+                    }
+                  })
+                  if (found === false) {
+                    matchedAreaNumber = provinceAreaNumber;
+                  }
+                }
+              }
+            })
+          })
+
+          this.selectedProvince = address.province;
+          this.selectedArea = matchedAreaNumber;
+          this.update();
         }
     },
     watch: {
@@ -127,9 +199,9 @@ export default {
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
 <style scoped>
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>
