@@ -77,7 +77,7 @@ export default {
 body {
     margin: 0;
     padding: 0px 10px;
-    background-color: #f8f8fa;
+    background-color: #f2f2f5;
 }
 
 .page-fade-enter-active,
@@ -178,17 +178,17 @@ h6 {
     opacity: .4;
 }
 
-.btn {
+.btn:not(.no-shadow) {
     box-shadow: 0px 9px 30px rgba(0, 0, 0, 0.12);
     transition: all 0.3s;
 }
 
-.btn:hover {
+.btn:not(.no-shadow):hover {
     box-shadow: 0px 12px 40px rgba(0, 0, 0, 0.12);
     transform: translateY(-2px);
 }
 
-.btn:active {
+.btn:not(.no-shadow):active {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.12);
     transform: translateY(2px);
 }

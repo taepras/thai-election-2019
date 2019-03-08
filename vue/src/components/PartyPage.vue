@@ -89,7 +89,7 @@
                                         {{ i + 1 }}
                                     </td>
                                     <td>
-                                        <a target="_blank" :href="'http://www.google.com/search?q=พรรค' + c.firstName + '+' + c.lastName">
+                                        <a target="_blank" :href="'http://www.google.com/search?q=' + c">
                                             {{ c }}
                                             <i class="fas fa-external-link-alt ml-1"></i>
                                         </a>

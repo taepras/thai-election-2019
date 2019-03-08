@@ -13,12 +13,12 @@
                             <h2 class="m-0 mb-3">ค้นหารายชื่อ ส.ส. เขต</h2>
                             <!-- <h3>เลือกเขตเลือกตั้ง</h3> -->
                             <area-finder :areas="areas" :value="selected" @input="selected = $event"></area-finder>
-                            <button class="btn btn-primary btn-block" @click="go">เลือกเขต</button>
+                            <button class="btn btn-primary btn-block" @click="go" :disabled="!selected.selectedArea" :class="{ 'btn-secondary': !selected.selectedArea }">ดูรายชื่อผู้สมัคร</button>
                         </floating-card>
-                        <router-link class="btn btn-outline-secondary btn-block" :to="{ 'path': '/all_parties' }">
+                        <router-link class="btn btn-outline-secondary btn-block no-shadow mt-4" :to="{ 'path': '/all_parties' }">
                             ดูข้อมูลทุกพรรคที่ลงเลือกตั้ง 2562
                         </router-link>
-                        <p class="mb-5 mt-3">
+                        <p class="mb-5 mt-3" style="line-height: 1.2">
                             <small>
                             รายชื่ออัพเดทล่าสุดวันที่ 7 มี.ค. 2562
                             <br>
