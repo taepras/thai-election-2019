@@ -17,33 +17,52 @@
         <template v-if=" mode == 'address' ">
 
             <div class="mb-1 clearfix thailand-autocomplete">
-                <ThailandAutoComplete v-model="subdistrict" type="district" @select="addressSelected" label="ค้นหาเขตเลือกตั้งจากตำบล/แขวง" placeholder="พิมพ์ชื่อตำบลที่นี่" />
+                <!-- <small>พิมพ์ชื่อตำบล/แขวงโดยไม่ต้องพิมพ์คำว่า "ตำบล" หรือ "แขวง"</small> -->
+                <ThailandAutoComplete v-model="subdistrict" type="district" @select="addressSelected" label="ค้นหาเขตเลือกตั้งจากชื่อตำบล/แขวง" placeholder="ไม่ต้องพิมพ์คำว่าตำบล/แขวง" />
             </div>
             <div class="form-group" v-if="selectedArea">
                 <div class="alert alert-info">
-                <!-- ตำบลที่เลือก:
+                    <small>
+                        <span class="nowrap">{{ province == 'กรุงเทพมหานคร' ? 'แขวง' : 'ต. ' }}{{ selectedAddress.district }}</span>
+                        <span class="nowrap">{{ province == 'กรุงเทพมหานคร' ? 'เขต' : 'อ. ' }}{{ selectedAddress.amphoe }}</span>
+                        <span class="nowrap">จ. {{ selectedAddress.province }}</span>
+                    </small>
+                    <!-- ตำบลที่เลือก:
                 <span class="nowrap">{{ province == 'กรุงเทพมหานคร' ? 'แขวง' : 'ต.' }} {{ subdistrict }}</span>
                 <span class="nowrap">{{ province == 'กรุงเทพมหานคร' ? 'เขต' : 'อ.' }} {{ district }}</span>
                 <span class="nowrap">จ. {{ province }}</span>
                 <br> เขตเลือกตั้ง: {{ selectedProvince }} เขต {{ selectedArea }} -->
-                <table class="selected-table">
-                    <tr>
-                        <td class="nowrap"><small>ตำบลที่เลือก</small></td>
-                        <td class="pl-2">
-                            <small>
-                            <span class="nowrap">{{ province == 'กรุงเทพมหานคร' ? 'แขวง' : 'ต. ' }}{{ selectedAddress.district }}</span>
-                            <span class="nowrap">{{ province == 'กรุงเทพมหานคร' ? 'เขต' : 'อ. ' }}{{ selectedAddress.amphoe }}</span>
-                            <span class="nowrap">จ. {{ selectedAddress.province }}</span>
-                            </small>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="nowrap"><small>เขตเลือกตั้ง</small></td>
-                        <td class="pl-2"><b>{{ selectedProvince == 'กรุงเทพมหานคร' ? 'กทม.' : selectedProvince }} เขต {{ selectedArea }}</b></td>
-                    </tr>
-                </table>
+                    <!-- <table class="selected-table">
+                        <tr>
+                            <td class="nowrap">
+                                <small>ตำบลที่เลือก</small>
+                            </td>
+                            <td class="pl-2">
+                                <small>
+                                    <span class="nowrap">{{ province == 'กรุงเทพมหานคร' ? 'แขวง' : 'ต. ' }}{{ selectedAddress.district }}</span>
+                                    <span class="nowrap">{{ province == 'กรุงเทพมหานคร' ? 'เขต' : 'อ. ' }}{{ selectedAddress.amphoe }}</span>
+                                    <span class="nowrap">จ. {{ selectedAddress.province }}</span>
+                                </small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="nowrap">
+                                <small>เขตเลือกตั้ง</small>
+                            </td>
+                            <td class="pl-2">
+                                <b>{{ selectedProvince == 'กรุงเทพมหานคร' ? 'กทม.' : selectedProvince }} เขต {{ selectedArea }}</b>
+                            </td>
+                        </tr>
+                    </table> -->
                 </div>
             </div>
+
+            <button v-for="a in selectedArea" :key="a.number" class="btn btn-primary btn-block" @click="onSelect(a)">
+                {{ selectedProvince == 'กรุงเทพมหานคร' ? 'กทม.' : selectedProvince }} เขต {{ a.number }} ({{ detailsToWords(a) }})
+            </button>
+            <button v-if="!selectedArea" class="btn btn-secondary btn-block" disabled>
+                กรุณาเลือกตำบลเพื่อดูรายชื่อผู้สมัคร
+            </button>
 
             <!-- <div class="form-group">
                 <ThailandAutoComplete v-model="district" type="amphoe" @select="addressSelected" label="อำเภอ/เขต" placeholder=""/>
@@ -118,8 +137,8 @@ export default {
                         this.areas[this.selectedProvince]
                     ).sort()[0];
             } else {
-                this.selectedProvince = ''
-                this.selectedArea = ''
+                this.selectedProvince = "";
+                this.selectedArea = "";
             }
 
             this.update();
@@ -181,36 +200,78 @@ export default {
             };
 
             const provinceInfo = this.areas[address.province];
+            console.log(
+                this.areas,
+                this.areas[address.province],
+                address.province,
+                provinceInfo
+            );
             const provinceAreaNumbers = Object.keys(provinceInfo);
 
             // Case 1: one area in one province
             if (provinceAreaNumbers.length === 1) {
                 this.selectedProvince = address.province;
-                this.selectedArea = "1";
+                this.selectedArea = [
+                    {
+                        number: '1',
+                        matched: 'all_province',
+                        details: address.province
+                    }
+                ];
                 this.update();
                 return;
             }
 
             console.log(this.selectedAddress, provinceAreaNumbers);
-            let matchedAreaNumber = null;
+            let matchedAreaNumber = [];
             provinceAreaNumbers.forEach(provinceAreaNumber => {
                 provinceInfo[provinceAreaNumber].forEach(districtInfo => {
                     if (districtInfo.district === address.district) {
-                        console.log('district matched', address.province, provinceAreaNumber)
+                        console.log(
+                            "district matched",
+                            address.province,
+                            provinceAreaNumber
+                        );
                         if (
                             "all" in districtInfo.subdistricts &&
                             districtInfo.subdistricts.all === true
                         ) {
-                            matchedAreaNumber = provinceAreaNumber;
+                            matchedAreaNumber = [
+                                {
+                                    number: provinceAreaNumber,
+                                    matched: "all",
+                                    details: address.district
+                                }
+                            ];
                         } else if ("only" in districtInfo.subdistricts) {
                             districtInfo.subdistricts.only.forEach(
                                 subdistrict => {
-                                    subdistrict = subdistrict.replace("เทศบาลตำบล", "ตำบล");
-                                    subdistrict = subdistrict.replace("เทศบาลเมือง", "ตำบล"); 
-                                    subdistrict = subdistrict.replace("เทศบาลนคร", "ตำบล"); 
-                                    console.log('only', subdistrict, address.subdistrict)
+                                    // subdistrict = subdistrict.replace("เทศบาลตำบล", "ตำบล");
+                                    // subdistrict = subdistrict.replace("เทศบาลเมือง", "ตำบล");
+                                    // subdistrict = subdistrict.replace("เทศบาลนคร", "ตำบล");
+                                    console.log(
+                                        "only",
+                                        subdistrict,
+                                        address.subdistrict
+                                    );
                                     if (subdistrict === address.subdistrict) {
-                                        matchedAreaNumber = provinceAreaNumber;
+                                        matchedAreaNumber = [
+                                            {
+                                                number: provinceAreaNumber,
+                                                matched: "only",
+                                                details: subdistrict
+                                            }
+                                        ];
+                                    } else if (
+                                        subdistrict.subdistrict &&
+                                        subdistrict.subdistrict ===
+                                            address.subdistrict
+                                    ) {
+                                        matchedAreaNumber.push({
+                                            number: provinceAreaNumber,
+                                            matched: "only",
+                                            details: subdistrict
+                                        });
                                     }
                                 }
                             );
@@ -218,27 +279,105 @@ export default {
                             let found = false;
                             districtInfo.subdistricts.except.forEach(
                                 subdistrict => {
-                                    console.log('except', subdistrict, address.subdistrict)
-                                    subdistrict = subdistrict.replace("เทศบาลตำบล", "ตำบล");
-                                    subdistrict = subdistrict.replace("เทศบาลเมือง", "ตำบล"); 
-                                    subdistrict = subdistrict.replace("เทศบาลนคร", "ตำบล"); 
+                                    console.log(
+                                        "except",
+                                        subdistrict,
+                                        address.subdistrict
+                                    );
+                                    // subdistrict = subdistrict.replace("เทศบาลตำบล", "ตำบล");
+                                    // subdistrict = subdistrict.replace("เทศบาลเมือง", "ตำบล");
+                                    // subdistrict = subdistrict.replace("เทศบาลนคร", "ตำบล");
+                                    if (
+                                        subdistrict.subdistrict &&
+                                        subdistrict.subdistrict ===
+                                            address.subdistrict
+                                    ) {
+                                        // except but not all area of subdistrict
+                                        matchedAreaNumber.push({
+                                            number: provinceAreaNumber,
+                                            matched: "except",
+                                            details: subdistrict
+                                        });
+                                        found = true;
+                                    }
+
                                     if (subdistrict === address.subdistrict) {
                                         found = true;
                                     }
                                 }
                             );
                             if (found === false) {
-                                matchedAreaNumber = provinceAreaNumber;
+                                matchedAreaNumber = [
+                                    {
+                                        number: provinceAreaNumber,
+                                        matched: "except",
+                                        details: subdistrict
+                                    }
+                                ];
                             }
                         }
                     }
                 });
             });
 
-            console.log(matchedAreaNumber)
+            console.log("matched", matchedAreaNumber);
             this.selectedProvince = address.province;
             this.selectedArea = matchedAreaNumber;
             this.update();
+        },
+        detailsToWords(a) {
+            // {
+            //     number: provinceAreaNumber,
+            //     matched: "except",
+            //     details: subdistrict
+            // }
+            // return JSON.stringify(a)
+            try {
+                if (a.matched === "all_province") {
+                    return "ทั้งจังหวัด";
+                } if (a.matched === "all") {
+                    return "ทั้งอำเภอ/เขต";
+                } else if (a.matched === "only") {
+                    var output = "เฉพาะ";
+                    if (a.details.subdistrict) {
+                        if (a.details.inside) {
+                            output += "ในเขต" + a.details.inside;
+                        } else if (a.details.outside) {
+                            output += "นอกเขต" + a.details.outside;
+                        } else {
+                            output += a.details.subdistrict;
+                        }
+                    } else {
+                        output += a.details;
+                    }
+                    return output;
+                } else if (a.matched === "except") {
+                    var output = "ยกเว้น";
+                    if (a.details.subdistrict) {
+                        if (a.details.inside) {
+                            output += "ในเขต" + a.details.inside;
+                        } else if (a.details.outside) {
+                            output += "นอกเขต" + a.details.outside;
+                        } else {
+                            output += a.details.subdistrict;
+                        }
+                    } else {
+                        output += a.details;
+                    }
+                    return output;
+                } else {
+                    return "unknown";
+                }
+            } catch (e) {
+                console.error(e);
+                return JSON.stringify(a);
+            }
+        },
+        onSelect(a) {
+            this.$emit("select", {
+                selectedProvince: this.selectedProvince,
+                selectedArea: a.number
+            });
         }
     },
     watch: {

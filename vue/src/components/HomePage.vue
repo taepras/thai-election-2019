@@ -12,8 +12,8 @@
                         <floating-card :height="5" class="pb-1">
                             <h2 class="m-0 mb-3">ค้นหารายชื่อ ส.ส. เขต</h2>
                             <!-- <h3>เลือกเขตเลือกตั้ง</h3> -->
-                            <area-finder :areas="areas" :value="selected" @input="selected = $event"></area-finder>
-                            <button class="btn btn-primary btn-block" @click="go" :disabled="!selected.selectedArea" :class="{ 'btn-secondary': !selected.selectedArea }">ดูรายชื่อผู้สมัคร</button>
+                            <area-finder :areas="areas" :value="selected" @input="selected = $event" @select="go"></area-finder>
+                            <!-- <button class="btn btn-primary btn-block" @click="go" :disabled="!selected.selectedArea" :class="{ 'btn-secondary': !selected.selectedArea }">ดูรายชื่อผู้สมัคร</button> -->
                         </floating-card>
                         <router-link class="btn btn-outline-secondary btn-block no-shadow mt-4" :to="{ 'path': '/all_parties' }">
                             ดูข้อมูลทุกพรรคที่ลงเลือกตั้ง 2562
@@ -79,7 +79,9 @@ export default {
         };
     },
     methods: {
-        go() {
+        go(e) {
+            this.selected.selectedProvince = e.selectedProvince
+            this.selected.selectedArea = e.selectedArea
             this.$router.push({
                 path: `/region/${utils.provinceToUrl(
                     this.selected.selectedProvince

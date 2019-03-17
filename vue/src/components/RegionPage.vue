@@ -26,8 +26,8 @@
                     เลือกเขตเลือกตั้ง
                 </template>
                 <template v-slot:body>
-                    <area-finder :areas="areas" :value="selected" @input="selected = $event"></area-finder>
-                    <button class="btn btn-primary btn-block" @click="commitAreaChange">เลือกเขต</button>
+                    <area-finder :areas="areas" :value="selected" @input="selected = $event" @select="commitAreaChange"></area-finder>
+                    <!-- <button class="btn btn-primary btn-block" @click="commitAreaChange">เลือกเขต</button> -->
                 </template>
             </modal>
         </keep-alive>
@@ -222,18 +222,32 @@ export default {
                             name =
                                 name +
                                 " (เฉพาะ" +
-                                area[i].subdistricts.only.join(", ") +
+                                area[i].subdistricts.only.map(this.districtDetailsToWords).join(", ") +
                                 ")";
                     if (area[i].subdistricts.except)
                         name =
                             name +
                             " (ยกเว้น" +
-                            area[i].subdistricts.except.join(", ") +
+                            area[i].subdistricts.except.map(this.districtDetailsToWords).join(", ") +
                             ")";
                 }
                 districtNames.push(name);
             }
             return districtNames;
+        },
+        districtDetailsToWords(d) {
+            if (typeof(d) === 'object') {
+                var output = d.subdistrict
+                if (d.inside) {
+                    output += 'ในเขต' + d.inside
+                } else if (a.outside) {
+                    output += 'นอกเขต' + d.outside
+                }
+                return output
+                // return JSON.stringify(d)
+            } else {
+                return d
+            }
         },
         provinceToEnglish(province) {
             return utils.provinceMap[province];
@@ -260,10 +274,10 @@ export default {
             this.currentSort = s;
             console.log("sort", this.currentSort, this.currentSortDir);
         },
-        commitAreaChange() {
+        commitAreaChange(e) {
             this.showModal = false;
-            this.selectedProvince = this.selected.selectedProvince;
-            this.selectedArea = this.selected.selectedArea;
+            this.selectedProvince = e.selectedProvince;
+            this.selectedArea = e.selectedArea;
             this.updateUrl();
         }
     },
