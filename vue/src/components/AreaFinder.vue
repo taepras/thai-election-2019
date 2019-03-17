@@ -58,7 +58,7 @@
             </div>
 
             <button v-for="a in selectedArea" :key="a.number" class="btn btn-primary btn-block" @click="onSelect(a)">
-                {{ selectedProvince == 'กรุงเทพมหานคร' ? 'กทม.' : selectedProvince }} เขต {{ a.number }} ({{ detailsToWords(a) }})
+                {{ selectedProvince == 'กรุงเทพมหานคร' ? 'กทม.' : selectedProvince }} เขต {{ a.number }} (<span v-html="detailsToWords(a)"></span>)
             </button>
             <button v-if="!selectedArea" class="btn btn-secondary btn-block" disabled>
                 กรุณาเลือกตำบลเพื่อดูรายชื่อผู้สมัคร
@@ -352,7 +352,7 @@ export default {
                     }
                     return output;
                 } else if (a.matched === "except") {
-                    var output = "ยกเว้น";
+                    var output = "<b>ยกเว้น</b>";
                     if (a.details.subdistrict) {
                         if (a.details.inside) {
                             output += "ในเขต" + a.details.inside;

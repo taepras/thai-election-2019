@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="d-flex flex-column fill-page-height justify-content-center pb-5">
+                    <div class="pt-5 pb-5">
                         <div class="mb-5">
                             <h5 class="mb-0 not-bold text-muted">เตรียมตัวเลือกตั้ง 2562</h5>
                             <h3 class="m-0 text-muted">"24 มีนาฯ เข้าคูหา กา 1 ได้ถึง 3"</h3>
